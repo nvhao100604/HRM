@@ -1,5 +1,5 @@
 import { Employee } from "./components/Employee"
-import { useState, type ChangeEvent, type ChangeEventHandler } from "react"
+import { useState, type ChangeEvent} from "react"
 import { Button, TextField } from "@mui/material"
 
 
