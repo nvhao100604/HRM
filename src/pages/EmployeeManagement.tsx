@@ -6,7 +6,7 @@ import type { Employee } from "../interface/employee.interface";
 
 function EmployeeManagement() {
 //Hàm trả về employee thông qua id
-const [tempEmployeeId, setEmployeeId] = useState<string>('');
+const [tempEmployeeId, setEmployeeId] = useState<string>('1');
 
 const setID = (employeeId: string) =>{
     console.log("eee:" + employeeId);
@@ -15,11 +15,11 @@ const setID = (employeeId: string) =>{
 
 const EmployeeFilter = () =>{
     if(data != null){
-        console.log(data)
+        console.log(data);
     }
 }
-
-const data: Employee | null | undefined = useFetchInfo(tempEmployeeId);
+const path = "employee";
+const data: Employee | null | undefined = useFetchInfo(path, tempEmployeeId);
 let employee : Employee | null | undefined;
 
 if(data != null){
@@ -34,7 +34,7 @@ return (
     <input type="number" value={tempEmployeeId} onChange={(e) => setID(e.target.value)}/>
     <Button variant="contained" onClick={EmployeeFilter}>Filter</Button>
 </div>
-    <h1>Nhân viên: </h1>
+    <h1>Employee: </h1>
     <div key={employee?.id}>
         <p>Họ tên: {employee?.lastName} {employee?.firstName}</p>
         <p>Email: {employee?.email}</p>

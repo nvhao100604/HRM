@@ -1,26 +1,30 @@
 import { useEffect, useState } from "react";
 import api from "../axios";
 import type { Employee } from "../interface/employee.interface";
+//input:
+//+ Path: Thư mục tương ứng đối tượng cần lọc
+//+ query: Các tiêu chỉ tìm kiếm phân trang
+//+ dataPost: các thông tin được post lên
 
-//input: id
-const useFetchList = () => {
-    const [data, setData] = useState<Employee[] | null | undefined>(null);
+const useFetchList = (path: string, query: object, dataPost: object) => {
+    const [data, setData] = useState<Employee[] | [] >([]);
+
     useEffect(() =>{
         const fetchAPI = async () =>{
             try{
-                const response = await api.post(`employee/filter?name=a`);
-                if(response.status == 500){
-                    console.log(response.data.errors);
-                }
+                const queryString = new URLSearchParams(query as any).toString();
+                console.log(queryString);
+                const response = await api.post(`${path}/filter?${queryString}`, dataPost);
                 setData(response.data.data);
             }catch(err){
-                setData(null);
+                console.error(err);
+                setData([]);
             }
         }
         fetchAPI();
-    });
+    }, [path, JSON.stringify(query), JSON.stringify(dataPost)]);
 
-    return [data];
+    return data;
 }
 
 export default useFetchList;
