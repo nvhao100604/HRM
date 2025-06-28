@@ -9,6 +9,8 @@
 ## Libraries:
   + MUI (Material UI)
   + React Router DOM
+## Support tools:
+  + UI: purecode.ai
 ## Installation:
 ###  Install HRM FE with npm:
   ```bash
