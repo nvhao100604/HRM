@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import api from "../axios";
-import type { Employee } from "../interface/employee.interface";
+import { defaultEmployee, type Employee } from "../interface/employee.interface";
 
 //input: id
 const useFetchInfo = (path: string, id: string) => {
-    const [data, setData] = useState<Employee | null>();
+    const [data, setData] = useState<Employee>();
     useEffect(() =>{
         const fetchAPI = async () =>{
             try{
@@ -12,10 +12,14 @@ const useFetchInfo = (path: string, id: string) => {
                 setData(response.data.data);
             }catch(err){
                 console.error(err);
-                setData(null);
+                setData(defaultEmployee);
             }
         }
         fetchAPI();
+
+        return () =>{
+            setData(defaultEmployee);
+        }
     }, [path, id]);
 
     return data;

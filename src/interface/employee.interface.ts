@@ -12,3 +12,18 @@ export interface Employee{
     citizenIdentificationCard: string,
     status: string
 }
+
+export const defaultEmployee: Employee = {
+    id: 0,
+    firstName: '',
+    lastName: "",
+    email: "",
+    phone: "",
+    gender: "",
+    dateOfBirth: "",
+    address: "",
+    position: "",
+    image: "",
+    citizenIdentificationCard: "",
+    status: ""
+}

@@ -5,6 +5,9 @@ import useQuery from './../hooks/useQuery';
 import useDataPost from '../hooks/useDataPost';
 import type { Page } from '../interface/Page.interface';
 import '../css/listStyle.css'
+import { useState } from 'react';
+import EmployeeAdd from './EmployeeAddModal';
+import { Link } from 'react-router-dom';
 
 interface employeeDataPost {
     name: string,
@@ -34,6 +37,8 @@ const [dataPost, updateDataPost, resetDataPost] = useDataPost({
 "address": '',
 "status": ''
 });
+
+const [idTemp, setIdTemp] = useState('0');
 
 const path: string = "employee";
 const data: Employee[] | null | undefined = useFetchList(path, (query as Page), dataPost);
@@ -73,14 +78,14 @@ const setAddress = (newAddress : string) =>{
 }
 
 const printId = (id: number) =>{
-    console.log(id);
+    setIdTemp(id.toString());
 }
-
 
 return (
     <>
     <div>
         <h1>EmployeeList</h1>
+        <EmployeeAdd />
         <div>
             <TextField value={(dataPost as employeeDataPost).name} label="Name" placeholder='Name...'
             onChange={(e) => setName(e.target.value)}/>
@@ -111,11 +116,18 @@ return (
 
             <tbody>
                 {data && data.map((item : Employee) =>(
-                <tr key={item.id} onClick={() => printId(item.id)}>
-                    <td>{item.firstName} {item.lastName}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone}</td>
-                </tr>
+
+                    <tr key={item.id} onClick={() => printId(item.id)}>
+                        <td>{item.firstName} {item.lastName}</td>
+                        <td>{item.email}</td>
+                        <td>{item.phone}</td>
+                        <td>
+                            <Link to={`/employee/${item.id}`}>
+                                <button>Detail</button>
+                            </Link>
+                        </td>
+                    </tr>
+
                 ))}
             </tbody>
         </table>
@@ -126,6 +138,8 @@ return (
             <span>Page: {(query as Page).page + 1}</span>
             <Button onClick={() => SetPage((query as Page).page + 1)}>After</Button>
         </div>
+
+        {/* <AccountOverview /> */}
     </div>
     </>
 )

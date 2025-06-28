@@ -22,6 +22,10 @@ const useFetchList = (path: string, query: object, dataPost: object) => {
             }
         }
         fetchAPI();
+
+        return () =>{
+            setData([]);
+        }
     }, [path, JSON.stringify(query), JSON.stringify(dataPost)]);
 
     return data;

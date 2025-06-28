@@ -8,6 +8,7 @@
   + Tailwindcss
 ## Libraries:
   + MUI (Material UI)
+  + React Router DOM
 ## Installation:
 ###  Install HRM FE with npm:
   ```bash
@@ -37,6 +38,10 @@ export default defineConfig({
   + MUI:
   ```bash
   npm install @mui/material @emotion/react @emotion/styled
+  ```
+  + React Router Dom:
+  ```bash
+  npm install react-router-dom
   ```
 ### Install Axios:
 ```bash
