@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiHome, FiUsers, FiDollarSign, FiUserPlus, FiBriefcase, FiBell, FiMenu, FiX, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import { createBrowserRouter, Link, Outlet, RouterProvider } from "react-router-dom";
 import { LogoutModal } from "../components/LogoutModal";
 
 const DashboardLayout = () => {
-  const [currentSection, setCurrentSection] = useState("Home");
+  const [currentSection, setCurrentSection] = useState("");
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -16,6 +16,29 @@ const DashboardLayout = () => {
     { id: 4, name: "Recruitment", icon: FiUserPlus, path: '/' },
     { id: 5, name: "Department", icon: FiBriefcase, path: '/' },
   ];
+  //Khi vừa mounted
+  useEffect(() => {
+    try {
+      const jsonString = localStorage.getItem('currentSection');
+      if (jsonString === null) return;
+      //
+      const savedSection = JSON.parse(jsonString);
+      setCurrentSection(savedSection);
+
+    } catch (error) {
+      console.error(error);
+    }
+  }, [])
+  //
+  useEffect(() => {
+    const jsonString = JSON.stringify(currentSection);
+    localStorage.setItem('currentSection', jsonString);
+
+    const savedSection = JSON.parse(jsonString);
+    console.log(savedSection);
+  }, [currentSection]);
+
+  console.log(currentSection);
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
@@ -100,12 +123,6 @@ const DashboardLayout = () => {
           </header>
 
           <div className="p-4 md:p-6 animate-fadeIn">
-            <div className="text-sm breadcrumbs mb-6 flex items-center">
-              <span className="text-gray-600 hover:text-gray-800 transition-colors">Home</span>
-              <span className="mx-2">→</span>
-              <span className="text-blue-600 font-semibold text-base md:text-lg">{currentSection}</span>
-            </div>
-
             <div className="container">
               <Outlet />
             </div>
