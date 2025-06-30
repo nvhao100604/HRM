@@ -4,7 +4,10 @@ import { createBrowserRouter, Link, Outlet, RouterProvider } from "react-router-
 import { LogoutModal } from "../components/LogoutModal";
 
 const DashboardLayout = () => {
-  const [currentSection, setCurrentSection] = useState("");
+  const [currentSection, setCurrentSection] = useState<string>(()=> {
+    return JSON.parse(sessionStorage.getItem('currentSection') as string) ?? "Home";
+  });
+
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -16,29 +19,23 @@ const DashboardLayout = () => {
     { id: 4, name: "Recruitment", icon: FiUserPlus, path: '/' },
     { id: 5, name: "Department", icon: FiBriefcase, path: '/' },
   ];
-  //Khi vừa mounted
-  useEffect(() => {
-    try {
-      const jsonString = localStorage.getItem('currentSection');
-      if (jsonString === null) return;
-      //
-      const savedSection = JSON.parse(jsonString);
-      setCurrentSection(savedSection);
-
-    } catch (error) {
-      console.error(error);
-    }
-  }, [])
   //
   useEffect(() => {
     const jsonString = JSON.stringify(currentSection);
-    localStorage.setItem('currentSection', jsonString);
-
-    const savedSection = JSON.parse(jsonString);
-    console.log(savedSection);
+    sessionStorage.setItem('currentSection', jsonString);
   }, [currentSection]);
+  //
+  useEffect(() =>{
+    const handleUnload = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      return '';
+    }
+    window.addEventListener("beforeunload", handleUnload);
 
-  console.log(currentSection);
+    return () =>{
+      window.removeEventListener("beforeunload", handleUnload);
+    }
+  }, [])
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);

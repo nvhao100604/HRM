@@ -1,12 +1,12 @@
 import React, { useState, type ChangeEvent } from 'react'
-import { defaultEmployee, type Employee } from '../interface/employee.interface';
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import { FaBriefcase, FaClock, FaFileContract, FaGlobeAmericas, FaLaptop, FaUserGraduate, FaUserPlus } from 'react-icons/fa';
-import { InputField } from '../components/InputField';
-import { SubmitComponent } from '../components/SubmitComponent';
-import TypeSelect from '../components/CustomSelection';
-import type { SelectItem } from '../interface/selectElement.interface';
+import type { SelectItem } from '../../interface/selectElement.interface';
+import { defaultEmployee, type Employee } from '../../interface/employee.interface';
+import { InputField } from '../../components/InputField';
+import TypeSelect from '../../components/CustomSelection';
+import { SubmitComponent } from '../../components/SubmitComponent';
 
 const employmentTypes: SelectItem[] = [
     { id: "full-time", label: "Full Time", description: "Standard 40-hour work week" },
