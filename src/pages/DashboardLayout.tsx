@@ -18,6 +18,7 @@ const DashboardLayout = () => {
     { id: 3, name: "Payroll", icon: FiDollarSign, path: '/payroll' },
     { id: 4, name: "Recruitment", icon: FiUserPlus, path: '/' },
     { id: 5, name: "Department", icon: FiBriefcase, path: '/' },
+    { id: 6, name: "Financial Dashboard", icon: FiBriefcase, path: '/dashboard' },
   ];
   //
   useEffect(() => {
@@ -85,52 +86,49 @@ const DashboardLayout = () => {
 
             <div className="absolute bottom-8 left-16 space-x-4">
               <button
-                  onClick={() => setShowLogoutModal(true)}
-                  className="inline-flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition duration-200"
+                onClick={() => setShowLogoutModal(true)}
+                className="inline-flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition duration-200"
               >
-                  <FiLogOut className="mr-2" />
-                  Logout
+                <FiLogOut className="mr-2" />
+                Logout
               </button>
           </div>
-          </div>
-        </div>
-
-        <div className="flex-1">
-          <header className="bg-white dark:bg-gray-800 shadow-md p-4 sticky top-0 z-30">
-            <div className="flex justify-end items-center space-x-4">
-              {/* <button
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                onClick={toggleDarkMode}
-              >
-                {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
-              </button> */}
-              <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 relative">
-                <FiBell size={20} />
-                <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
-              </button>
-              <div className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity duration-200">
-                <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt="User"
-                  className="h-8 w-8 rounded-full ring-2 ring-blue-500"
-                />
-                <span className="hidden md:inline">John Doe</span>
-              </div>
-            </div>
-          </header>
-
-          <div className="p-4 md:p-6 animate-fadeIn">
-            <div className="container">
-              <Outlet />
-            </div>
         </div>
       </div>
 
+      <div className="flex-1">
+        <header className="bg-white dark:bg-gray-800 shadow-md p-4 sticky top-0 z-30">
+          <div className="flex justify-end items-center space-x-4">
+          {/* <button
+              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+              onClick={toggleDarkMode}
+            >
+              {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
+            </button> */}
+            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 relative">
+              <FiBell size={20} />
+              <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
+            </button>
+            <div className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity duration-200">
+              <img
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                alt="User"
+                className="h-8 w-8 rounded-full ring-2 ring-blue-500"
+              />
+              <span className="hidden md:inline">John Doe</span>
+            </div>
+          </div>
+        </header>
+        
+        <div className="container w-full p-4 md:p-6 animate-fadeIn">
+          <Outlet />
+        </div>
       </div>
-        {showLogoutModal && (
-          <LogoutModal setShowLogoutModal={() => setShowLogoutModal(false)} handleLogout={handelLogout} />
-        )}
     </div>
+      {showLogoutModal && (
+        <LogoutModal setShowLogoutModal={() => setShowLogoutModal(false)} handleLogout={handelLogout} />
+      )}
+  </div>
 
   );
 };

@@ -1,19 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState, type ChangeEvent } from 'react'
 import { FiCamera, FiEdit2 } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 import useFetchInfo from '../../hooks/useFetchInfo';
 
+interface ImgFile {
+  lastModified: 1749015490903
+  lastModifiedDate: 
+""
+}
 function AccountOverview({employeeId, onClose} : {employeeId: string, onClose: () => void}) {
 
   const userData = useFetchInfo("employee", employeeId as string);
-
-  const handleImageUpload = (e: any) => {
-  const file = e.target.files[0];
-  if (file) {
-      // Handle image upload logic here
-      console.log("Image uploaded:", file);
-  }
+  const [imgFile, setImgFile] = useState<File | null>(null);
+  const [imgUrl, setImgUrl] = useState<string | undefined>(() => {
+    return userData?.image
+  });
+  const [confirmUpload, setConfirmUpload] = useState(false);
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    if(e.target.files && e.target.files[0]) setImgFile(e.target.files[0]);
   };
+
+  useEffect(() => {
+    console.log(imgFile?.name);
+    if(imgFile) setImgUrl(URL.createObjectURL(imgFile));
+    // setConfirmUpload(true);
+  }, [imgFile]);
+
+  useEffect(() => {
+    if(confirmUpload){
+      
+    }
+  })
 
 return (employeeId &&
 <div className="fixed inset-0 z-50 flex items-center justify-center animate-[wiggle_1s_ease-in-out_infinite]">
@@ -24,8 +41,8 @@ return (employeeId &&
       <div className="flex flex-col items-center">
         <div className="relative">
           <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white">
-            <img
-              src={userData?.image}
+            <img id='imgFile'
+              src={imgUrl}
               alt="Profile"
               className="w-full h-full object-cover"
               onError={(e: any) => {

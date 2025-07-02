@@ -9,6 +9,7 @@
 ## Libraries:
   + MUI (Material UI)
   + React Router DOM
+  + react-chartjs
 ## Support tools:
   + UI: purecode.ai
 ## Installation:
@@ -44,6 +45,13 @@ export default defineConfig({
   + React Router Dom:
   ```bash
   npm install react-router-dom
+  ```
+  + Chart:
+  ```bash
+  react-chartjs-2
+  ```
+  ```bash
+  chart.js
   ```
 ### Install Axios:
 ```bash

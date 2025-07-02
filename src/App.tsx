@@ -5,6 +5,7 @@ import DashboardLayout from "./pages/DashboardLayout";
 import MainContent from "./pages/MainContent";
 import EmployeePage from "./pages/EmployeePages/EmployeePage";
 import EmployeeManagement from "./pages/EmployeePages/EmployeeManagement";
+import FinancialDashboard from "./pages/FinancialDashboard";
 
 
 
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: 'employee/E-Manage', element: <EmployeeManagement /> },
 
       { path: '/payroll', element: <MainContent /> },
+      { path: '/dashboard', element: <FinancialDashboard /> },
     ],
   }
 ]);

@@ -3,6 +3,30 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { FaWallet, FaChartLine, FaPiggyBank } from "react-icons/fa";
 
+
+ export const ProgressBar = ({ goal, current, label } : {goal: number, current: number, label: string}) => {
+    const percentage = (current / goal) * 100;
+    return (
+      <div className="mb-4 px-4">
+        <div className="flex justify-between mb-1">
+          <span className="text-sm font-medium text-gray-700">{label}</span>
+          <span className="text-sm font-medium text-gray-700">
+            ${current} / ${goal}
+          </span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div
+            className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+            style={{ width: `${percentage}%` }}
+            role="progressbar"
+            aria-valuenow={percentage}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          ></div>
+        </div>
+      </div>
+    );
+  };
 const FinancialDashboard = () => {
   const chartData = {
     labels: ["Jan", "Feb", "Mar", "Apr"],
@@ -40,30 +64,6 @@ const FinancialDashboard = () => {
         beginAtZero: true,
       },
     },
-  };
-
-  const ProgressBar = ({ goal, current, label }) => {
-    const percentage = (current / goal) * 100;
-    return (
-      <div className="mb-4">
-        <div className="flex justify-between mb-1">
-          <span className="text-sm font-medium text-gray-700">{label}</span>
-          <span className="text-sm font-medium text-gray-700">
-            ${current} / ${goal}
-          </span>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-2.5">
-          <div
-            className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
-            style={{ width: `${percentage}%` }}
-            role="progressbar"
-            aria-valuenow={percentage}
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
-      </div>
-    );
   };
 
   return (
