@@ -16,15 +16,42 @@ export interface Employee{
 
 export const defaultEmployee: Employee = {
     id: '0',
-    firstName: '123',
-    lastName: "123",
-    email: "123",
-    phone: "123",
-    gender: "123",
-    dateOfBirth: "123",
-    address: "123",
-    position: "123",
-    image: "123",
-    citizenIdentificationCard: "123",
-    status: "123"
+    firstName: '',
+    lastName: "",
+    email: "",
+    phone: "",
+    gender: "",
+    dateOfBirth: "",
+    address: "",
+    position: "",
+    image: "",
+    citizenIdentificationCard: "",
+    status: ""
+}
+
+export interface EmployeeDataForm {
+    [key: string ]: string | File | null,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    gender: string,
+    dateOfBirth: string,
+    address: string,
+    image: File | null,
+    citizenIdentificationCard: string,
+    status: string
+}
+
+export const employeeDefaultDataForm: EmployeeDataForm = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    gender: "",
+    dateOfBirth: "",
+    address: "",
+    image: null,
+    citizenIdentificationCard: "",
+    status: ""
 }

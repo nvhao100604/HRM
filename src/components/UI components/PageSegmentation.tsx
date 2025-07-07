@@ -1,10 +1,10 @@
 import { Button } from '@mui/material'
 import React from 'react'
 
-export const PageSegmentation = ({setPrevious, setAfter, goToPage, currentPage, totalItems, totalPages, sizePerPage}
-    : {setPrevious: () => void,
-       setAfter: () => void,
-       goToPage: (i: number) => void
+export const PageSegmentation = ({onSetPrevious, onSetAfter, onGoToPage, currentPage, totalItems, totalPages, sizePerPage}
+    : {onSetPrevious: () => void,
+       onSetAfter: () => void,
+       onGoToPage: (i: number) => void
        currentPage: number,
        totalItems: number,
        totalPages: number,
@@ -20,7 +20,7 @@ export const PageSegmentation = ({setPrevious, setAfter, goToPage, currentPage, 
             className={`px-2 py-1 mx-1 cursor-pointer ${
                 currentPage === i ? 'font-bold text-blue-600' : 'text-gray-600'
             }`}
-            onClick={() => goToPage(i)}
+            onClick={() => onGoToPage(i)}
             >
             {i + 1}
             </span>
@@ -30,14 +30,14 @@ export const PageSegmentation = ({setPrevious, setAfter, goToPage, currentPage, 
     }
     return (
     <div className="relative grid grid-cols-3 w-3/5 justify-items-center-safe mx-auto">
-        <Button onClick={setPrevious}
+        <Button onClick={onSetPrevious}
         disabled={currentPage === 0? true : false}>Previous</Button>
         <div className='self-center'>{spawnSpan()}</div>
         <Button
         disabled={totalItems < sizePerPage? true : false ||
           currentPage === totalPages? true : false
         }
-        onClick={setAfter}>After</Button>
+        onClick={onSetAfter}>After</Button>
     </div>
   )
 }

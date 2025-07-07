@@ -1,7 +1,7 @@
 import React, { useEffect, useState, type ChangeEvent } from 'react'
 import { FiCamera, FiEdit2 } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
-import useFetchInfo from '../../hooks/useFetchInfo';
+import useFetchInfo from '../../components/hooks/useFetchInfo';
 
 interface ImgFile {
   lastModified: 1749015490903
@@ -42,12 +42,9 @@ return (employeeId &&
         <div className="relative">
           <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white">
             <img id='imgFile'
-              src={imgUrl}
+              src={imgUrl ?? "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde"}
               alt="Profile"
               className="w-full h-full object-cover"
-              onError={(e: any) => {
-                e.target.src = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde";
-              }}
             />
           </div>
           <label className="absolute bottom-0 right-0 bg-orange-400 p-2 rounded-full cursor-pointer hover:bg-blue-700 transition duration-200">
@@ -76,7 +73,7 @@ return (employeeId &&
           <div className="space-y-4">
             <div>
               <label className="text-sm text-gray-500">Full Name</label>
-              <p className="text-gray-800 font-medium">{`${userData?.firstName} ${userData?.lastName}`}</p>
+              <p className="text-gray-800 font-medium">{userData?.firstName} {userData?.lastName}</p>
             </div>
             <div>
               <label className="text-sm text-gray-500">Date of Birth</label>

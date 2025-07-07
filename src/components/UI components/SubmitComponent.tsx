@@ -7,7 +7,7 @@ export const SubmitComponent = ({feature, text, isLoading, onClose} :
   return (
     <div className="flex justify-end space-x-3 mt-6">
         <button
-        type="button"
+        type="submit"
         onClick={onClose}
         className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors"
         disabled={isLoading}

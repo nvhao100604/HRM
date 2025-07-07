@@ -1,5 +1,5 @@
-export const LogoutModal = ({setShowLogoutModal, handleLogout}:
-    {setShowLogoutModal: () => void, handleLogout: () => void}) => {
+export const LogoutModal = ({onShowLogoutModal, onLogout}:
+    {onShowLogoutModal: () => void, onLogout: () => void}) => {
     return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
@@ -7,13 +7,13 @@ export const LogoutModal = ({setShowLogoutModal, handleLogout}:
         <p className="text-gray-600 mb-6">Are you sure you want to logout? This action cannot be undone.</p>
         <div className="flex justify-end space-x-4">
             <button
-            onClick={setShowLogoutModal}
+            onClick={onShowLogoutModal}
             className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md transition duration-200"
             >
             Cancel
             </button>
             <button
-            onClick={handleLogout}
+            onClick={onLogout}
             className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md transition duration-200"
             >
             Logout

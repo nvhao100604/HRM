@@ -18,9 +18,9 @@ const router = createBrowserRouter([
       { path: 'dev', element: <div>Dev Page Content</div> },
       { path: '/employee', element: <EmployeePage />},
       { path: 'employee/E-Manage', element: <EmployeeManagement /> },
-
       { path: '/payroll', element: <MainContent /> },
       { path: '/dashboard', element: <FinancialDashboard /> },
+      { path: '/error', element: <ErrorPage /> },
     ],
   }
 ]);

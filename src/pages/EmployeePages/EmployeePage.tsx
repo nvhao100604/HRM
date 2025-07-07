@@ -1,4 +1,4 @@
-import { CustomSection } from "../../components/CustomSection"
+import { CustomSection } from "../../components/UI components/CustomSection"
 import type { Feature } from "../../interface/feature.interface"
 
 const employeeFeatures: Feature[] = [

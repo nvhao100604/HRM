@@ -1,8 +1,26 @@
 import { useEffect, useState } from "react";
 import { FiHome, FiUsers, FiDollarSign, FiUserPlus, FiBriefcase, FiBell, FiMenu, FiX, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
 import { createBrowserRouter, Link, Outlet, RouterProvider } from "react-router-dom";
-import { LogoutModal } from "../components/LogoutModal";
+import { LogoutModal } from "../components/UI components/LogoutModal";
+import type { Account } from "../interface/account.interface";
+import useFetchInfo from "../components/hooks/useFetchInfo";
 
+
+const accountClone: Account = {
+  accountId: "1",
+  roleId: "1",
+  departmentId: "1"
+}
+
+const navigationItems = [
+  { id: 1, name: "Home", icon: FiHome, path: '/'},
+  { id: 2, name: "Employee", icon: FiUsers, path: '/employee' },
+  { id: 3, name: "Payroll", icon: FiDollarSign, path: '/payroll' },
+  { id: 4, name: "Recruitment", icon: FiUserPlus, path: '/' },
+  { id: 5, name: "Department", icon: FiBriefcase, path: '/' },
+  { id: 6, name: "Financial Dashboard", icon: FiBriefcase, path: '/dashboard' },
+  { id: 7, name: "Error", icon: FiBriefcase, path: '/error' },
+];
 const DashboardLayout = () => {
   const [currentSection, setCurrentSection] = useState<string>(()=> {
     return JSON.parse(sessionStorage.getItem('currentSection') as string) ?? "Home";
@@ -11,32 +29,17 @@ const DashboardLayout = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const navigationItems = [
-    { id: 1, name: "Home", icon: FiHome, path: '/'},
-    { id: 2, name: "Employee", icon: FiUsers, path: '/employee' },
-    { id: 3, name: "Payroll", icon: FiDollarSign, path: '/payroll' },
-    { id: 4, name: "Recruitment", icon: FiUserPlus, path: '/' },
-    { id: 5, name: "Department", icon: FiBriefcase, path: '/' },
-    { id: 6, name: "Financial Dashboard", icon: FiBriefcase, path: '/dashboard' },
-  ];
   //
   useEffect(() => {
     const jsonString = JSON.stringify(currentSection);
     sessionStorage.setItem('currentSection', jsonString);
-  }, [currentSection]);
-  //
-  useEffect(() =>{
-    const handleUnload = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      return '';
-    }
-    window.addEventListener("beforeunload", handleUnload);
 
-    return () =>{
-      window.removeEventListener("beforeunload", handleUnload);
+    return () => {
+      sessionStorage.removeItem('currentSection');
     }
-  }, [])
+  }, [currentSection]);
+
+  const accountInfo = useFetchInfo("employee", accountClone.accountId);
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
@@ -115,7 +118,7 @@ const DashboardLayout = () => {
                 alt="User"
                 className="h-8 w-8 rounded-full ring-2 ring-blue-500"
               />
-              <span className="hidden md:inline">John Doe</span>
+              <span className="hidden md:inline">{accountInfo?.lastName}</span>
             </div>
           </div>
         </header>
@@ -126,7 +129,7 @@ const DashboardLayout = () => {
       </div>
     </div>
       {showLogoutModal && (
-        <LogoutModal setShowLogoutModal={() => setShowLogoutModal(false)} handleLogout={handelLogout} />
+        <LogoutModal onShowLogoutModal={() => setShowLogoutModal(false)} onLogout={handelLogout} />
       )}
   </div>
 

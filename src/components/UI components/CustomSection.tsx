@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Feature } from '../interface/feature.interface'
+import type { Feature } from '../../interface/feature.interface'
 import { Link } from 'react-router-dom'
 
 const SectionChild = ({feature} : {feature: Feature}) => (

@@ -10,6 +10,11 @@ const ErrorPage = ({ errorCode = 404, errorMessage = "Oops! The page you're look
     window.location.reload();
   };
 
+  const handleSetDefaultSection = () =>{
+    const jsonString = JSON.stringify("Home");
+    sessionStorage.setItem('currentSection', jsonString);
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100 flex items-center justify-center p-4">
       <div className="max-w-2xl w-full text-center space-y-8">
@@ -37,16 +42,15 @@ const ErrorPage = ({ errorCode = 404, errorMessage = "Oops! The page you're look
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link to={"/"}>
-            <button
-            className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 space-x-2"
-            aria-label="Return to home page"
-            >
-              <FiHome className="text-xl" />
-              <span>Return Home</span>
-            </button>
+          <button
+          className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 space-x-2"
+          aria-label="Return to home page"
+          onClick={handleSetDefaultSection}
+          ><Link to={"/"}>
+            <FiHome className="text-xl" />
+            <span>Return Home</span>
           </Link>
-
+          </button>
 
           <button
             onClick={handleRefresh}

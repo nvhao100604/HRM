@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import api from "../axios";
-import { TempDataResponse, type DataResponse } from "../interface/FetchData.interface";
+import { useEffect, useLayoutEffect, useState } from "react";
+import api from "../../config/axios";
+import { TempDataResponse, type DataResponse } from "../../interface/FetchData.interface";
 
 //input:
 //+ Path: Thư mục tương ứng đối tượng cần lọc
@@ -10,7 +10,7 @@ import { TempDataResponse, type DataResponse } from "../interface/FetchData.inte
 const useFetchList = (path: string, query: object, dataPost: object) => {
     const [data, setData] = useState<DataResponse>(TempDataResponse);
 
-    useEffect(() =>{
+    useLayoutEffect(() =>{
         const fetchAPI = async () =>{
             try{
                 const queryString = new URLSearchParams(query as any).toString();

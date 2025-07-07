@@ -2,15 +2,16 @@ import { useState, type ChangeEvent } from 'react';
 import { format } from "date-fns";
 import { FaSearch, FaSort } from 'react-icons/fa';
 import { Button } from '@mui/material';
-import useFetchList from '../../hooks/useFetchList';
+import useFetchList from '../../components/hooks/useFetchList';
 import type { Employee } from '../../interface/employee.interface';
-import useQuery from '../../hooks/useQuery';
-import useDataPost from '../../hooks/useDataPost';
+import useQuery from '../../components/hooks/useQuery';
+import useDataPost from '../../components/hooks/useDataPost';
 import { defaultPage, type DataResponse, type Page } from '../../interface/FetchData.interface';
 import AccountOverview from './AccountOverview';
-import { PageSegmentation } from '../../components/PageSegmentation';
+import { PageSegmentation } from '../../components/UI components/PageSegmentation';
 import { Link } from 'react-router-dom';
 import { ProgressBar } from '../FinancialDashboard';
+import EmployeeAdd from './EmployeeAddModal';
 
 interface employeeDataPost {
   name: string,
@@ -42,24 +43,24 @@ const [dataPost, updateDataPost, resetDataPost] = useDataPost({
 const [query, updateQuery, resetQuery ] = useQuery(defaultPage);
 const data: DataResponse = useFetchList(path, (query as Page), dataPost);
 //
-const SetData = (dataField: string, newData: string) => {
+const handleSetData = (dataField: string, newData: string) => {
   if(typeof updateDataPost === 'function' && typeof resetQuery === 'function'){
     updateDataPost({ [dataField]: newData});
     resetQuery();
   }
 }
-const SetPage = (newPage: number) =>{
+const handleSetPage = (newPage: number) =>{
   if(typeof updateQuery === 'function' && typeof resetQuery === 'function'){
     updateQuery({ page: newPage});
   }
 }
 
-const HandleDetail = (id: string) =>{
+const handleDetail = (id: string) =>{
   setIdTemp(id);
   setShowDetail(true);
 }
 
-const onCloseDetail = () =>{
+const handleCloseDetail = () =>{
   setShowDetail(false);
 }
 
@@ -78,7 +79,7 @@ return (
               placeholder="Search by name..."
               className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={(dataPost as employeeDataPost).name}
-              onChange={(e) => SetData("name", e.target.value)}
+              onChange={(e) => handleSetData("name", e.target.value)}
             />
           </div>
         </div>
@@ -113,14 +114,14 @@ return (
               {(data.data as Employee[]).map((employeeData) => (
                 <tr
                   key={employeeData.id}
-                  onClick={() => HandleDetail(employeeData.id)}
+                  onDoubleClick={() => handleDetail(employeeData.id)}
                   className="hover:bg-gray-200 cursor-pointer transition-colors duration-150"
                 >
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     {employeeData.id}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {employeeData.firstName} {employeeData.lastName}
+                    {employeeData.firstName} {employeeData.lastName ?? ""}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {employeeData.email}
@@ -143,13 +144,13 @@ return (
       </div>
     
       <PageSegmentation
-        setPrevious={() => SetPage((query as Page).page - 1)}
-        setAfter={() => SetPage((query as Page).page + 1)}
+        onSetPrevious={() => handleSetPage((query as Page).page - 1)}
+        onSetAfter={() => handleSetPage((query as Page).page + 1)}
         currentPage={(query as Page).page}
         totalItems={data.data.length}
         totalPages={data.totalPages}
         sizePerPage={(query as Page).size}
-        goToPage={SetPage}
+        onGoToPage={handleSetPage}
       />
     </div>
 
@@ -173,7 +174,7 @@ return (
             goal={5000}
           />
       </div>
-      <div className='relative bg-white rounded-lg shadow mt-8 h-95'>
+      <div className='relative bg-white rounded-lg shadow mt-4 h-95'>
         <h1 className='uppercase font-bold text-center py-4'>department other's employee</h1>
         <div className='px-4 overflow-x-auto'>
           <div>123</div>
@@ -188,10 +189,11 @@ return (
           <div>123</div>
         </div>
       </div>
-      {showDetail && (<AccountOverview employeeId={idTemp} onClose={onCloseDetail} />)}
+      <EmployeeAdd />
+      {showDetail && (<AccountOverview employeeId={idTemp} onClose={handleCloseDetail} />)}
     </div>
 
-    <div>
+    <div className='absolute bottom-8'>
       <Link to={"/employee"}>Back</Link>
     </div>
   </div>

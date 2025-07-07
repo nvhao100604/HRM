@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { FaBriefcase, FaClock, FaLaptop, FaUserGraduate, FaFileContract, FaGlobeAmericas } from "react-icons/fa";
 import { BsExclamationCircleFill } from "react-icons/bs";
-import type { SelectItem } from "../interface/selectElement.interface";
+import type { SelectItem } from "../../interface/selectElement.interface";
 
-const TypeSelect = ({employmentTypes, textType, name}: {employmentTypes: SelectItem[], textType: string, name: string}) => {
+const TypeSelect = ({employmentTypes, textType, name}: 
+  {employmentTypes: SelectItem[], textType: string, name: string}) => {
   const [selectedType, setSelectedType] = useState("");
   const [touched, setTouched] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);

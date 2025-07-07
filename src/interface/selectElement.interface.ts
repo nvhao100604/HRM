@@ -4,3 +4,9 @@ export interface SelectItem {
   icon?: any, 
   description?: string
 }
+
+export interface RadioItems {
+  id: string,
+  label: string,
+  icon?: string
+}
