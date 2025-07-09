@@ -1,13 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home";
-import ErrorPage from "./pages/ErrorPage";
 import DashboardLayout from "./pages/DashboardLayout";
-import MainContent from "./pages/MainContent";
-import EmployeePage from "./pages/EmployeePages/EmployeePage";
-import EmployeeManagement from "./pages/EmployeePages/EmployeeManagement";
-import FinancialDashboard from "./pages/FinancialDashboard";
-
-
+import {ErrorPage} from "./pages/Error/index";
+import {FinancialDashboard} from "./pages/Statistic/index";
+import { EmployeeManagement, EmployeePage} from './pages/EmployeePages/index';
+import {Home} from "./pages/Home/Index";
 
 const router = createBrowserRouter([
   { path: '/',
@@ -18,7 +14,7 @@ const router = createBrowserRouter([
       { path: 'dev', element: <div>Dev Page Content</div> },
       { path: '/employee', element: <EmployeePage />},
       { path: 'employee/E-Manage', element: <EmployeeManagement /> },
-      { path: '/payroll', element: <MainContent /> },
+      { path: '/payroll', element: <Home /> },
       { path: '/dashboard', element: <FinancialDashboard /> },
       { path: '/error', element: <ErrorPage /> },
     ],

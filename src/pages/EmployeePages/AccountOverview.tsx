@@ -1,16 +1,10 @@
 import React, { useEffect, useState, type ChangeEvent } from 'react'
 import { FiCamera, FiEdit2 } from 'react-icons/fi';
-import { useParams } from 'react-router-dom';
-import useFetchInfo from '../../components/hooks/useFetchInfo';
+import { useFetchGet } from '../../components/hooks';
 
-interface ImgFile {
-  lastModified: 1749015490903
-  lastModifiedDate: 
-""
-}
 function AccountOverview({employeeId, onClose} : {employeeId: string, onClose: () => void}) {
 
-  const userData = useFetchInfo("employee", employeeId as string);
+  const userData = useFetchGet("employee", employeeId as string);
   const [imgFile, setImgFile] = useState<File | null>(null);
   const [imgUrl, setImgUrl] = useState<string | undefined>(() => {
     return userData?.image

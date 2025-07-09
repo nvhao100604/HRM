@@ -6,7 +6,7 @@ const TableFromList = ({ list } : Item) => {
 
 const headers = list.length > 0 ? Object.keys(list[0]).filter(key => key !== 'id') : [];
 console.log(headers);
-  return (
+    return (
     <table>
         <thead>
             <tr style={{fontWeight: "Bold"}}>

@@ -1,27 +1,27 @@
 //UI State
 import { RESET_UI_STATE, SET_UI_STATE } from "./constants";
-import type { State, UIAction, UIState } from "./UIState.interface";
+import type { State, UIAction, UIState } from "../../interface/interfaces";
 
-///Initial state for UI
-const initUIState: UIState = {
-    states: [],
-    currentState: {
-        name: "Home",
-        path: "/"
-    }
-}
 ///Initial State
 const initState: State = {
     name: "Home",
     path: "/"
 };
+
+///Initial UI state
+const initUIState: UIState = {
+    states: [],
+    currentState: initState
+}
+
 //Reducer function
 function reducer(state: UIState, action: UIAction){
+    console.log("Previous state: " + state.currentState.name);
     switch (action.type){
         case SET_UI_STATE:{
             if(!action.payload) return state;
             ///else
-            const newState: State = action.payload
+            const newState: State = action.payload;
             return {
                 ...state,
                 currentState: newState
@@ -39,5 +39,5 @@ function reducer(state: UIState, action: UIAction){
     }
 }
 
-export { initUIState };
+export { initUIState, initState };
 export default reducer;

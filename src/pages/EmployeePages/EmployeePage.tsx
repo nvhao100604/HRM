@@ -1,4 +1,4 @@
-import { CustomSection } from "../../components/UI components/CustomSection"
+import { Section } from "../../components/UI components";
 import type { Feature } from "../../interface/feature.interface"
 
 const employeeFeatures: Feature[] = [
@@ -9,11 +9,11 @@ const employeeFeatures: Feature[] = [
     },
 ]
 
-const EmployeePage = () =>{
+function EmployeePage(){
 
     return (
         <div>
-            <CustomSection currentSection="Employee" featureList={employeeFeatures}/>
+            <Section currentSection="Employee" featureList={employeeFeatures}/>
         </div>
     )
 }

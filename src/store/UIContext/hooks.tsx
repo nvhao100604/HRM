@@ -1,7 +1,8 @@
-import { useContext } from "react"
-import { UIContext } from "."
+import { useContext, type Dispatch } from "react"
+import type { UIAction, UIState } from "../../interface/interfaces";
+import { UIContext } from '.';
 
-const useUI = () =>{
+const useUI = (): [UIState, Dispatch<UIAction>] =>{
     const [state, dispatch] = useContext(UIContext);
 
     return [state, dispatch];

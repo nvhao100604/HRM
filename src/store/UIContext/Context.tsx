@@ -1,8 +1,7 @@
-import { createContext, type Dispatch } from "react";
+import { createContext} from "react";
 import { initUIState } from "../../state/UI state/reducers";
-import type { UIAction, UIState } from "../../state/UI state/UIState.interface";
+import type { UIContextType} from "../../interface/UIState.interface";
 
-type UIContextType = [UIState, Dispatch<UIAction>];
 ///Dashboard state
 const Context = createContext<UIContextType>([
     initUIState,

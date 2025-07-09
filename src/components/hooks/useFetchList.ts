@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import api from "../../config/axios";
-import { TempDataResponse, type DataResponse } from "../../interface/FetchData.interface";
+import { TempDataResponse, type DataResponse } from "../../interface/interfaces";
 
 //input:
 //+ Path: Thư mục tương ứng đối tượng cần lọc

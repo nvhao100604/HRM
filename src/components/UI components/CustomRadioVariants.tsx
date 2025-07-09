@@ -2,14 +2,14 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
-import type { RadioItems } from '../../interface/selectElement.interface';
 import type { ChangeEvent } from 'react';
+import type { RadioItems } from '../../interface/interfaces';
 
-export function CustomRadioVariants({radioName, radioItems, onSetData} : 
+function CustomRadioVariants({radioName, radioItems, onSetData} : 
   {radioName: string, radioItems: RadioItems[], onSetData: (e: ChangeEvent<HTMLInputElement>) => void}) {
   return (
     <FormControl>
-      <FormLabel>Gender</FormLabel>
+      <FormLabel>{radioName}</FormLabel>
       <RadioGroup defaultValue={radioItems[0].id} name={radioName}
       onChange={onSetData}
       >
@@ -25,3 +25,5 @@ export function CustomRadioVariants({radioName, radioItems, onSetData} :
     </FormControl>
   );
 }
+
+export default CustomRadioVariants;

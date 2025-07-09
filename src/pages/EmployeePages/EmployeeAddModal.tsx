@@ -1,14 +1,11 @@
 import React, { useEffect, useState, type ChangeEvent } from 'react'
 import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
-import {FaUserPlus } from 'react-icons/fa';
-import type { RadioItems } from '../../interface/selectElement.interface';
-import { employeeDefaultDataForm, type EmployeeDataForm } from '../../interface/employee.interface';
-import { InputField } from '../../components/UI components/InputField';
-import { SubmitComponent } from '../../components/UI components/SubmitComponent';
-import { CustomRadioVariants } from '../../components/UI components/CustomRadioVariants';
-import apiFile from '../../config/axios/index';
 import { FiCamera } from 'react-icons/fi';
+import {FaUserPlus } from 'react-icons/fa';
+import apiFile from '../../config/axios/index';
+import { employeeDefaultDataForm, type EmployeeDataForm, type RadioItems } from '../../interface/interfaces';
+import {InputField, RadioVariant, SubmitComponent} from '../../components/UI components';
 
 const genderOption: RadioItems[] = [
   {id: "male", label: "Male"},
@@ -69,7 +66,7 @@ const EmployeeAddModal = ({formData, imgUrl, isOpen, onClose, onChange, onImageU
                         formData={formData.citizenIdentificationCard}
                         onChange={onChange}
                         />
-            <CustomRadioVariants radioName="gender" radioItems={genderOption} onSetData={onChange} />
+            <RadioVariant radioName="gender" radioItems={genderOption} onSetData={onChange} />
             <SubmitComponent feature='Add Employee' text='Adding...' isLoading={isLoading} onClose={onClose}/>
 
           </form>

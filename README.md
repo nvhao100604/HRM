@@ -2,11 +2,12 @@
 
 ## Abtract:
 
-## Framework:
-  + React
+## Language:
   + Typescript
+## Framework:
   + Tailwindcss
 ## Libraries:
+  + React
   + MUI (Material UI)
   + React Router DOM
   + react-chartjs
@@ -38,6 +39,10 @@ export default defineConfig({
 ```
 
 ### Install libraries:
+  + React
+  ```bash
+  npm install
+  ```
   + MUI:
   ```bash
   npm install @mui/material @emotion/react @emotion/styled

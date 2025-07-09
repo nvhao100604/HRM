@@ -1,9 +1,9 @@
-import React, { type ChangeEvent } from 'react'
-import type { Employee } from '../../interface/employee.interface'
+import type { ChangeEvent } from "react";
 
-export const InputField = ({label, name, type, formData, onChange}: 
-    {label: string, name: string, type: string, formData: string, onChange: (e: ChangeEvent<HTMLInputElement>) => void}
-) => {
+const InputField = ({label, name, type, formData, onChange}:
+  {label: string, name: string, type: string, formData: string,
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void}
+  ) => {
   return (
     <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
@@ -18,3 +18,5 @@ export const InputField = ({label, name, type, formData, onChange}:
     </div>
   )
 }
+
+export default InputField;

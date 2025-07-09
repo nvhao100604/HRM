@@ -1,14 +1,13 @@
 import { Button } from '@mui/material'
-import React from 'react'
 
-export const PageSegmentation = ({onSetPrevious, onSetAfter, onGoToPage, currentPage, totalItems, totalPages, sizePerPage}
+const PageSegmentation = ({onSetPrevious, onSetAfter, onGoToPage, currentPage, totalItems, totalPages, sizePerPage}
     : {onSetPrevious: () => void,
-       onSetAfter: () => void,
-       onGoToPage: (i: number) => void
-       currentPage: number,
-       totalItems: number,
-       totalPages: number,
-       sizePerPage: number
+    onSetAfter: () => void,
+    onGoToPage: (i: number) => void
+    currentPage: number,
+    totalItems: number,
+    totalPages: number,
+    sizePerPage: number
     }
 ) => {
     const spawnSpan = () => {
@@ -35,9 +34,11 @@ export const PageSegmentation = ({onSetPrevious, onSetAfter, onGoToPage, current
         <div className='self-center'>{spawnSpan()}</div>
         <Button
         disabled={totalItems < sizePerPage? true : false ||
-          currentPage === totalPages? true : false
+            currentPage === totalPages? true : false
         }
         onClick={onSetAfter}>After</Button>
     </div>
-  )
+    )
 }
+
+export default PageSegmentation;

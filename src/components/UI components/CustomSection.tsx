@@ -1,9 +1,7 @@
-import React from 'react'
-import type { Feature } from '../../interface/feature.interface'
+import type { Feature } from '../../interface/interfaces'
 import { Link } from 'react-router-dom'
 
 const SectionChild = ({feature} : {feature: Feature}) => (
-
     <div className="bg-blue-50 dark:bg-gray-700 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
     >
         <Link to={feature.featurePath}>
@@ -12,7 +10,8 @@ const SectionChild = ({feature} : {feature: Feature}) => (
         </Link>
     </div>
 )
-export const CustomSection = ({currentSection, featureList}: {currentSection: string, featureList: Feature[]}) => {
+
+const CustomSection = ({currentSection, featureList}: {currentSection: string, featureList: Feature[]}) => {
     return (
     <div className="p-4 md:p-6 animate-fadeIn">
         <div className="text-sm breadcrumbs mb-6 flex items-center">
@@ -34,3 +33,5 @@ export const CustomSection = ({currentSection, featureList}: {currentSection: st
     </div>
 )
 }
+
+export default CustomSection;

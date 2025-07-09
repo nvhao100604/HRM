@@ -1,3 +1,2 @@
-export * from './actions'
+export * as actions from './actions'
 export * from './reducers'
-export * from './UIState.interface'
