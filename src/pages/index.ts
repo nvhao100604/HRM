@@ -1,0 +1,7 @@
+export { default as Home } from './home/page'
+export { default as Employee } from './employee/page'
+export { default as Department } from './department/page'
+export { default as Payroll } from './payroll/page'
+export { default as Recruitment } from './recruitment/page'
+export { default as Statistic } from './statistic/page'
+export { default as Error } from './error/page'
