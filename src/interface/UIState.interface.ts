@@ -1,13 +1,14 @@
 import type { Dispatch } from "react";
 
-export interface State{
+export interface State {
     name: string,
     path: string
 }
 
-export interface UIState{
+export interface UIState {
     states: State[],
-    currentState: State
+    currentState: State,
+    previousState: State
 }
 
 export interface UIAction {

@@ -1,2 +1,2 @@
-export {default as apiFile } from './File'
-export {default as api} from './NonFile'
+export { default as apiFile } from './File'
+export { default as api } from './NonFile'

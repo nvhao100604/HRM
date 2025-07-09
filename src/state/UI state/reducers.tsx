@@ -11,27 +11,30 @@ const initState: State = {
 ///Initial UI state
 const initUIState: UIState = {
     states: [],
-    currentState: initState
+    currentState: initState,
+    previousState: initState
 }
 
 //Reducer function
-function reducer(state: UIState, action: UIAction){
+function reducer(state: UIState, action: UIAction) {
     console.log("Previous state: " + state.currentState.name);
-    switch (action.type){
-        case SET_UI_STATE:{
-            if(!action.payload) return state;
+    switch (action.type) {
+        case SET_UI_STATE: {
+            if (!action.payload) return state;
             ///else
             const newState: State = action.payload;
             return {
                 ...state,
-                currentState: newState
+                currentState: newState,
+                previousSate: state.currentState
             };
         }
         case RESET_UI_STATE: {
             const resetState = initState;
             return {
                 ...state,
-                currentState: resetState
+                currentState: resetState,
+                previousState: state.currentState
             };
         }
 

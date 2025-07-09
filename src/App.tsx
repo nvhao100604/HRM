@@ -1,22 +1,28 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import DashboardLayout from "./pages/DashboardLayout";
-import {ErrorPage} from "./pages/Error/index";
-import {FinancialDashboard} from "./pages/Statistic/index";
-import { EmployeeManagement, EmployeePage} from './pages/EmployeePages/index';
-import {Home} from "./pages/Home/Index";
+import DashboardLayout from "./pages/layout";
+import { Employee, Error, Home, Statistic } from "./pages";
+import { EmployeeIndex, EmployeeManagement } from "./components/UI components/employee";
 
 const router = createBrowserRouter([
-  { path: '/',
+  {
+    path: '/',
     element: <DashboardLayout />,
-    errorElement: <ErrorPage />,
+    errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
       { path: 'dev', element: <div>Dev Page Content</div> },
-      { path: '/employee', element: <EmployeePage />},
-      { path: 'employee/E-Manage', element: <EmployeeManagement /> },
+      {
+        path: '/employee',
+        element: <Employee />,
+        errorElement: <Error />,
+        children: [
+          { index: true, element: <EmployeeIndex /> },
+          { path: '/employee/management', element: <EmployeeManagement /> }
+        ]
+      },
       { path: '/payroll', element: <Home /> },
-      { path: '/dashboard', element: <FinancialDashboard /> },
-      { path: '/error', element: <ErrorPage /> },
+      { path: '/dashboard', element: <Statistic /> },
+      { path: '/error', element: <Error /> },
     ],
   }
 ]);
@@ -24,7 +30,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
   )
 }
