@@ -1,6 +1,9 @@
 import type { Dispatch } from "react";
+import type { IconType } from "react-icons/lib";
 
 export interface State {
+    id: number,
+    icon: IconType,
     name: string,
     path: string
 }

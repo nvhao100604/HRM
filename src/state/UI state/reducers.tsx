@@ -1,8 +1,11 @@
 //UI State
 import { RESET_UI_STATE, SET_UI_STATE } from "./constants";
 import type { State, UIAction, UIState } from "../../interface/interfaces";
+import { FiArchive, FiBookmark, FiBriefcase, FiDollarSign, FiHexagon, FiHome, FiUsers } from "react-icons/fi";
 
 const defaultState: State = {
+    id: 0,
+    icon: FiHome,
     name: "Home",
     path: '/'
 }
@@ -28,7 +31,37 @@ const initState: State = currentSection();
 
 ///Initial UI state
 const initUIState: UIState = {
-    states: [],
+    states: [{
+        id: 1, icon: FiHome,
+        name: "Home",
+        path: '/'
+    },
+    {
+        id: 2, icon: FiUsers,
+        name: "Employee",
+        path: '/employee'
+    },
+    {
+        id: 3, icon: FiDollarSign,
+        name: "Payroll",
+        path: '/payroll'
+    },
+    {
+        id: 4, icon: FiArchive,
+        name: "Recruitment",
+        path: '/recruitment'
+    },
+    {
+        id: 5, icon: FiBriefcase,
+        name: "Department",
+        path: '/department'
+    },
+    {
+        id: 6, icon: FiHexagon,
+        name: "Statistic",
+        path: '/statistic'
+
+    },],
     currentState: initState,
     previousState: initState
 }

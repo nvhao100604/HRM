@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardLayout from "./pages/layout";
-import { Employee, Error, Home, Statistic } from "./pages";
+import { Department, Employee, Error, Home, Payroll, Recruitment, Statistic } from "./pages";
 import { EmployeeIndex, EmployeeManagement } from "./components/UI components/employee";
 
 const router = createBrowserRouter([
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'dev', element: <div>Dev Page Content</div> },
+      { path: '/department', element: <Department /> },
       {
         path: '/employee',
         element: <Employee />,
@@ -20,8 +20,9 @@ const router = createBrowserRouter([
           { path: '/employee/management', element: <EmployeeManagement /> }
         ]
       },
-      { path: '/payroll', element: <Home /> },
-      { path: '/dashboard', element: <Statistic /> },
+      { path: '/payroll', element: <Payroll /> },
+      { path: '/recruitment', element: <Recruitment /> },
+      { path: '/statistic', element: <Statistic /> },
       { path: '/error', element: <Error /> },
     ],
   }

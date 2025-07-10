@@ -1,71 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { FiHome, FiUsers, FiDollarSign, FiUserPlus, FiBriefcase, FiBell, FiMenu, FiX, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
+import { FiBriefcase, FiBell, FiMenu, FiX, FiLogOut } from "react-icons/fi";
 import { LogoutModal } from "../components/UI components/app";
-import type { Account, AccountState, State } from "../interface/interfaces";
+import type { Account, AccountState, State, UIState } from "../interface/interfaces";
 import { useFetchGet } from "../components/hooks";
 import { useAccount } from "../store/Account context";
 import { useUI } from "../store/UIContext";
 import { actions } from "../state/UI state";
-import type { IconType } from "react-icons/lib";
-
-interface NavigationItem {
-  id: number,
-  icon: IconType,
-  state: State
-}
-
-const navigationItems: NavigationItem[] = [
-  {
-    id: 1, icon: FiHome, state: {
-      name: "Home",
-      path: '/'
-    }
-  },
-  {
-    id: 2, icon: FiUsers, state: {
-      name: "Employee",
-      path: '/employee'
-    }
-  },
-  {
-    id: 3, icon: FiDollarSign,
-    state: {
-      name: "Payroll",
-      path: '/payroll'
-    }
-  },
-  {
-    id: 4, icon: FiDollarSign,
-    state: {
-      name: "Recruitment",
-      path: '/payroll'
-    }
-  },
-  {
-    id: 5, icon: FiDollarSign,
-    state: {
-      name: "Department",
-      path: '/payroll'
-    }
-  },
-  {
-    id: 6, icon: FiDollarSign,
-    state: {
-      name: "Statistic",
-      path: '/payroll'
-    }
-  },
-];
 
 const DashboardLayout = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [account, dispatchAcc] = useAccount();
-  const [currentSection, dispatchUI] = useUI();
+  const [section, dispatchUI] = useUI();
 
-  // console.log(account);
+  const { states, currentState } = section;
   const accountInfo = useFetchGet("employee", (account as AccountState).currentAccount.accountId);
 
   //
@@ -97,20 +47,20 @@ const DashboardLayout = () => {
             </div>
 
             <nav className="p-4">
-              {navigationItems.map((item) => (
-                <Link to={item.state.path} key={item.id}>
+              {states.map((item: State) => (
+                <Link to={item.path} key={item.id}>
                   <button
                     onClick={() => {
-                      dispatchUI(actions.setUIState(item.state))
+                      dispatchUI(actions.setUIState(item))
                     }}
                     className={`w-full flex items-center space-x-3 p-3 rounded-lg mb-2 transition-all duration-200 transform hover:scale-105 
-                      ${currentSection.currentState.name === item.state.name
+                      ${currentState.name === item.name
                         ? "bg-blue-600 text-white shadow-md"
                         : "hover:bg-gray-100 dark:hover:bg-gray-700"
                       }`}
                   >
                     <item.icon size={20} />
-                    <span>{item.state.name}</span>
+                    <span>{item.name}</span>
                   </button>
                 </Link>
               ))}
