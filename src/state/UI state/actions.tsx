@@ -10,4 +10,4 @@ const resetUIState = (): UIAction => ({
     type: RESET_UI_STATE
 })
 
-export {setUIState, resetUIState}
+export { setUIState, resetUIState }

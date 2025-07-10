@@ -2,11 +2,29 @@
 import { RESET_UI_STATE, SET_UI_STATE } from "./constants";
 import type { State, UIAction, UIState } from "../../interface/interfaces";
 
-///Initial State
-const initState: State = {
+const defaultState: State = {
     name: "Home",
-    path: "/"
+    path: '/'
+}
+
+const store = (currentState: State) => {
+    const jsonString = JSON.stringify(currentState);
+    sessionStorage.setItem('currentSection', jsonString);
+}
+
+const currentSection = (): State => {
+    const storedSection = sessionStorage.getItem('currentSection');
+
+    if (storedSection === null) {
+        console.log(storedSection);
+        store(defaultState);
+        return defaultState;
+    }
+
+    return JSON.parse(storedSection as string);
 };
+///Initial State
+const initState: State = currentSection();
 
 ///Initial UI state
 const initUIState: UIState = {
@@ -23,6 +41,7 @@ function reducer(state: UIState, action: UIAction) {
             if (!action.payload) return state;
             ///else
             const newState: State = action.payload;
+            store(newState);
             return {
                 ...state,
                 currentState: newState,
@@ -31,6 +50,7 @@ function reducer(state: UIState, action: UIAction) {
         }
         case RESET_UI_STATE: {
             const resetState = initState;
+            store(resetState);
             return {
                 ...state,
                 currentState: resetState,

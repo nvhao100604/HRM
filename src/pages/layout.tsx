@@ -59,28 +59,16 @@ const navigationItems: NavigationItem[] = [
 ];
 
 const DashboardLayout = () => {
-  // const [currentSection, setCurrentSection] = useState<string>(() => {
-  //   return JSON.parse(sessionStorage.getItem('currentSection') as string) ?? "Home";
-  // });
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [account, dispatchAcc] = useAccount();
   const [currentSection, dispatchUI] = useUI();
 
-  console.log(account);
+  // console.log(account);
   const accountInfo = useFetchGet("employee", (account as AccountState).currentAccount.accountId);
 
   //
-  // useEffect(() => {
-  //   const jsonString = JSON.stringify(currentSection);
-  //   sessionStorage.setItem('currentSection', jsonString);
-
-  //   return () => {
-  //     sessionStorage.removeItem('currentSection');
-  //   }
-  // }, [currentSection]);
-
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   const handelLogout = () => {
@@ -115,9 +103,10 @@ const DashboardLayout = () => {
                     onClick={() => {
                       dispatchUI(actions.setUIState(item.state))
                     }}
-                    className={`w-full flex items-center space-x-3 p-3 rounded-lg mb-2 transition-all duration-200 transform hover:scale-105 ${currentSection.currentState === item.state
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className={`w-full flex items-center space-x-3 p-3 rounded-lg mb-2 transition-all duration-200 transform hover:scale-105 
+                      ${currentSection.currentState.name === item.state.name
+                        ? "bg-blue-600 text-white shadow-md"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-700"
                       }`}
                   >
                     <item.icon size={20} />
