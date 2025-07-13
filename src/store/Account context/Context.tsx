@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import type { AccountContextType } from "../../interface/interfaces";
-import { init_account_state } from "../../state/Account state";
+import { init_account_state } from "./state/reducers";
+import type { AccountContextType } from "../../interface/account.interface";
 
 const Context = createContext<AccountContextType>([
     init_account_state,
-    () => {}
+    () => { }
 ])
 
 export default Context;

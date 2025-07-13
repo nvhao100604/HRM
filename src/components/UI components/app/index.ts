@@ -6,3 +6,6 @@ export { default as LogoutModal } from './LogoutModal'
 export { default as PageSegmentation } from './PageSegmentation'
 export { default as SubmitComponent } from './SubmitComponent'
 export { default as TableFromList } from './TableFromList'
+export {default as Header} from './Header'
+export {default as NavBar} from './Navigation'
+

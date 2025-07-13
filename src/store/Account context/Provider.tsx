@@ -1,8 +1,8 @@
 import { useReducer, type ReactElement } from "react"
-import reducer, { init_account_state } from "../../state/Account state/reducers"
 import Context from "./Context";
+import reducer, { init_account_state } from "./state/reducers";
 
-const Provider = ({children} : {children: ReactElement}) =>{
+const Provider = ({ children }: { children: ReactElement }) => {
     const [account_state, dispatch] = useReducer(reducer, init_account_state);
 
     return (

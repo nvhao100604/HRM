@@ -1,7 +1,7 @@
 //UI State
 import { RESET_UI_STATE, SET_UI_STATE } from "./constants";
-import type { State, UIAction, UIState } from "../../interface/interfaces";
-import { FiArchive, FiBookmark, FiBriefcase, FiDollarSign, FiHexagon, FiHome, FiUsers } from "react-icons/fi";
+import type { State, UIAction, UIState } from "../../../interface/interfaces";
+import { FiArchive, FiBriefcase, FiDollarSign, FiHexagon, FiHome, FiLogIn, FiUsers } from "react-icons/fi";
 
 const defaultState: State = {
     id: 0,
@@ -19,7 +19,6 @@ const currentSection = (): State => {
     const storedSection = sessionStorage.getItem('currentSection');
 
     if (storedSection === null) {
-        console.log(storedSection);
         store(defaultState);
         return defaultState;
     }
@@ -61,7 +60,14 @@ const initUIState: UIState = {
         name: "Statistic",
         path: '/statistic'
 
-    },],
+    },
+    {
+        id: 7, icon: FiLogIn,
+        name: "Log in",
+        path: '/login'
+
+    },
+    ],
     currentState: initState,
     previousState: initState
 }
@@ -82,7 +88,7 @@ function reducer(state: UIState, action: UIAction) {
             };
         }
         case RESET_UI_STATE: {
-            const resetState = initState;
+            const resetState = defaultState;
             store(resetState);
             return {
                 ...state,

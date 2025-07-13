@@ -1,29 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, type ChangeEvent } from "react";
 import { FaEye, FaEyeSlash, FaGoogle, FaFacebook, FaGithub } from "react-icons/fa";
 
+interface IDataForm {
+    username: string,
+    password: string,
+    confirmPassword: string,
+    agreeToTerms: boolean
+}
+
+const initDataForm: IDataForm = {
+    username: "",
+    password: "",
+    confirmPassword: "",
+    agreeToTerms: false
+}
+
+interface IError {
+    username?: string,
+    password?: string,
+    confirmPassword?: string,
+    agreeToTerms?: string
+}
 const RegistrationForm = () => {
-    const [formData, setFormData] = useState({
-        username: "",
-        password: "",
-        confirmPassword: "",
-        agreeToTerms: false
-    });
+    const [formData, setFormData] = useState<IDataForm>(initDataForm);
 
     const [showPassword, setShowPassword] = useState(false);
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState<IError>({});
     const [isLoading, setIsLoading] = useState(false);
 
-    const validateUsername = (username) => {
+    const validateUsername = (username: string) => {
         const usernameRegex = /^[a-zA-Z0-9_]{4,20}$/;
         return usernameRegex.test(username);
     };
 
-    const validatePassword = (password) => {
+    const validatePassword = (password: string) => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return passwordRegex.test(password);
     };
 
-    const getPasswordStrength = (password) => {
+    const getPasswordStrength = (password: string) => {
         if (!password) return 0;
         let strength = 0;
         if (password.length >= 8) strength += 1;
@@ -34,7 +49,7 @@ const RegistrationForm = () => {
         return strength;
     };
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
@@ -43,8 +58,8 @@ const RegistrationForm = () => {
         validateField(name, type === "checkbox" ? checked : value);
     };
 
-    const validateField = (name, value) => {
-        const newErrors = { ...errors };
+    const validateField = (name: string, value: string) => {
+        const newErrors: IError = { ...errors };
 
         switch (name) {
             case "username":
@@ -82,7 +97,7 @@ const RegistrationForm = () => {
         setErrors(newErrors);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: SubmitEvent) => {
         e.preventDefault();
         if (Object.keys(errors).length === 0 && formData.agreeToTerms) {
             setIsLoading(true);
@@ -131,7 +146,7 @@ const RegistrationForm = () => {
                     <span className="bg-gray-300 h-px w-full"></span>
                 </div>
 
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                <form className="mt-8 space-y-6" onSubmit={() => handleSubmit}>
                     <div className="rounded-md shadow-sm space-y-4">
                         <div>
                             <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
@@ -172,7 +187,7 @@ const RegistrationForm = () => {
                             {formData.password && (
                                 <div className="mt-2 space-y-1">
                                     <div className="flex space-x-1">
-                                        {[...Array(5)].map((_, index) => (
+                                        {[...Array(5)].map((index) => (
                                             <div
                                                 key={index}
                                                 className={`h-2 w-full rounded-full ${index < getPasswordStrength(formData.password) ? strengthColor[index] : 'bg-gray-200'}`}

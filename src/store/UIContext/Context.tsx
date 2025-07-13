@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { initUIState } from "../../state/UI state/reducers";
+import { initUIState } from "./state/reducers";
 import type { UIContextType } from "../../interface/UIState.interface";
 
 ///Dashboard state

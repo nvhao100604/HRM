@@ -1,13 +1,15 @@
 import type { Dispatch } from "react"
 
-export interface Account{
+export interface Account {
     accountId: string,
-    roleId: string,
+    roleName: string,
     departmentId: string
 }
 
 export interface AccountState {
-    currentAccount: Account
+    isLoading: boolean,
+    currentAccount: Account,
+    error: string
 }
 
 export interface AccountAction {

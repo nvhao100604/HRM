@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardLayout from "./pages/layout";
-import { Department, Employee, Error, Home, Payroll, Recruitment, Statistic } from "./pages";
+import { Department, Employee, Error, Home, Login, Payroll, Recruitment, Statistic } from "./pages";
 import { EmployeeIndex, EmployeeManagement } from "./components/UI components/employee";
 
 const router = createBrowserRouter([
@@ -24,6 +24,8 @@ const router = createBrowserRouter([
       { path: '/recruitment', element: <Recruitment /> },
       { path: '/statistic', element: <Statistic /> },
       { path: '/error', element: <Error /> },
+      { path: '/login', element: <Login /> },
+
     ],
   }
 ]);
@@ -36,4 +38,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
