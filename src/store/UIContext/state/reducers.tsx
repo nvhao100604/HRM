@@ -61,12 +61,6 @@ const initUIState: UIState = {
         path: '/statistic'
 
     },
-    {
-        id: 7, icon: FiLogIn,
-        name: "Log in",
-        path: '/login'
-
-    },
     ],
     currentState: initState,
     previousState: initState

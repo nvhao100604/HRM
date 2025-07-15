@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { TempDataResponse, type DataResponse } from "../../interface/interfaces";
+import { TempDataResponse, type DataResponse, type Query } from "../../interface/interfaces";
 import { api } from './../../config/axios/index';
 
 //input:
@@ -7,15 +7,25 @@ import { api } from './../../config/axios/index';
 //+ query: Các tiêu chỉ tìm kiếm phân trang
 //+ dataPost: các thông tin được post lên
 
-const useFetchList = (path: string, query: object, dataPost: object) => {
+const handleQuery = (query: Query) => {
+    const newQuery = query;
+    Object.keys(newQuery).forEach(key => {
+        const element = newQuery[key];
+        if (element === '' || element === null || element === undefined) {
+            delete newQuery[key];
+        }
+    })
+    return newQuery;
+}
+const useFetchList = (path: string, query: Query) => {
     const [data, setData] = useState<DataResponse>(TempDataResponse);
 
     useLayoutEffect(() => {
         const fetchAPI = async () => {
             try {
-                const queryString = new URLSearchParams(query as any).toString();
-                console.log(queryString);
-                const response = await api.post(`${path}/filter?${queryString}`, dataPost);
+                const handledQuery = handleQuery(query);
+                const queryString = new URLSearchParams(handledQuery as any).toString();
+                const response = await api.get(`${path}/filter?${queryString}`);
                 setData({
                     data: response.data.data.content,
                     totalElements: response.data.data.totalElements,
@@ -31,7 +41,7 @@ const useFetchList = (path: string, query: object, dataPost: object) => {
         return () => {
             setData(TempDataResponse);
         }
-    }, [path, JSON.stringify(query), JSON.stringify(dataPost)]);
+    }, [path, JSON.stringify(query)]);
 
     return data;
 }

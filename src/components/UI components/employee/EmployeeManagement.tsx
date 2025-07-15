@@ -1,37 +1,25 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaSort } from 'react-icons/fa';
-import { useData, useFetchPost, useQuery } from '../../../components/hooks/index.ts';
-import { defaultPage, type DataResponse, type Employee, type employeeDataPost, type Page } from '../../../interface/interfaces.ts';
+import { useFetchList, useQuery } from '../../../components/hooks/index.ts';
 import { PageSegmentation } from '../app/index.ts';
 import EmployeeAdd from './EmployeeAddModal.tsx';
 import AccountOverview from './AccountOverview.tsx';
+import { defaultQuery, type Employee } from '../../../interface/interfaces.ts';
+import { getCurrentUIState } from '../../../store/UIContext/hooks.tsx';
 
 const EmployeeManagement = () => {
   const [idTemp, setIdTemp] = useState('0');
   const [showDetail, setShowDetail] = useState(false);
 
-  const path: string = "employee";
-  const [dataPost, updateDataPost, resetDataPost] = useData({
-    "name": '',
-    "email": '',
-    "gender": '',
-    "address": '',
-    "status": ''
-  });
-  const [query, updateQuery, resetQuery] = useQuery(defaultPage);
-  const data: DataResponse = useFetchPost(path, (query as Page), dataPost);
+  const currentState = getCurrentUIState();
+  const path = currentState.path;
+
+  const [query, updateQuery, resetQuery] = useQuery(defaultQuery);
+  const data = useFetchList(path, query);
   //
-  const handleSetData = (dataField: string, newData: string) => {
-    if (typeof updateDataPost === 'function' && typeof resetQuery === 'function') {
-      updateDataPost({ [dataField]: newData });
-      resetQuery();
-    }
-  }
-  const handleSetPage = (newPage: number) => {
-    if (typeof updateQuery === 'function' && typeof resetQuery === 'function') {
-      updateQuery({ page: newPage });
-    }
+  const handleSetData = (dataField: string, newData: string | number) => {
+    updateQuery({ [dataField]: newData });
   }
 
   const handleDetail = (id: string) => {
@@ -57,7 +45,7 @@ const EmployeeManagement = () => {
                     type="text"
                     placeholder="Search by name..."
                     className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={(dataPost as employeeDataPost).name}
+                    value={query.name ?? ""}
                     onChange={(e) => handleSetData("name", e.target.value)}
                   />
                 </div>
@@ -123,13 +111,13 @@ const EmployeeManagement = () => {
             </div>
 
             <PageSegmentation
-              onSetPrevious={() => handleSetPage((query as Page).page - 1)}
-              onSetAfter={() => handleSetPage((query as Page).page + 1)}
-              currentPage={(query as Page).page}
+              onSetPrevious={() => handleSetData("page", (query.page ?? 1 - 1))}
+              onSetAfter={() => handleSetData("page", (query.page ?? 1 + 1))}
+              currentPage={query.page ?? 0}
               totalItems={data.data.length}
               totalPages={data.totalPages}
-              sizePerPage={(query as Page).size}
-              onGoToPage={handleSetPage}
+              sizePerPage={query.size ?? 0}
+              onGoToPage={handleSetData}
             />
           </div>
 

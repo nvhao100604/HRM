@@ -1,11 +1,7 @@
-import type { Account, AccountAction, AccountState } from "../../../interface/account.interface";
+import { cloneAccount, type Account, type AccountAction, type AccountState } from "../../../interface/account.interface";
 import { FETCH_ACCOUNT_ERROR, FETCH_ACCOUNT_REQUEST, FETCH_ACCOUNT_SUCCESS, LOG_IN, LOG_OUT } from "./constants";
 
-const initial_account: Account = {
-    accountId: "775572003",
-    roleName: "ADMIN",
-    departmentId: "0"
-}
+const initial_account: Account = cloneAccount;
 
 const init_account_state: AccountState = {
     isLoading: false,
@@ -38,6 +34,7 @@ const reducer = (state: AccountState, action: AccountAction) => {
         }
         case FETCH_ACCOUNT_SUCCESS: {
             console.log("FETCH_ACCOUNT_SUCCESS: ", action);
+            console.log("FETCH_ACCOUNT_SUCCESS_PAYLOAD: ", action.payload);
             const newAccountState = action.payload ?? initial_account;
             return {
                 ...state,

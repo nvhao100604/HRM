@@ -1,11 +1,17 @@
 import { useContext, type Dispatch } from "react"
-import type { UIAction, UIState } from "../../interface/interfaces";
+import type { State, UIAction, UIState } from "../../interface/interfaces";
 import { UIContext } from '.';
 
-const useUI = (): [UIState, Dispatch<UIAction>] =>{
+const useUI = (): [UIState, Dispatch<UIAction>] => {
     const [state, dispatch] = useContext(UIContext);
 
     return [state, dispatch];
 }
 
-export {useUI};
+const getCurrentUIState = (): State => {
+    const [state, dispatch] = useContext(UIContext);
+    const currentState = state.currentState;
+
+    return currentState;
+}
+export { useUI, getCurrentUIState };

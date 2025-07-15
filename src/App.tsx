@@ -1,8 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardLayout from "./pages/layout";
-import { Department, Employee, Error, Home, Login, Payroll, Recruitment, Statistic } from "./pages";
+import { Department, Employee, Error, Home, Login, Payroll, Recruitment, ResetPassword, Statistic, Verify } from "./pages";
 import { EmployeeIndex, EmployeeManagement } from "./components/UI components/employee";
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -14,7 +13,6 @@ const router = createBrowserRouter([
       {
         path: '/employee',
         element: <Employee />,
-        errorElement: <Error />,
         children: [
           { index: true, element: <EmployeeIndex /> },
           { path: '/employee/management', element: <EmployeeManagement /> }
@@ -24,10 +22,11 @@ const router = createBrowserRouter([
       { path: '/recruitment', element: <Recruitment /> },
       { path: '/statistic', element: <Statistic /> },
       { path: '/error', element: <Error /> },
-      { path: '/login', element: <Login /> },
-
     ],
-  }
+  },
+  { path: '/login', element: <Login />, errorElement: <Error /> },
+  { path: '/reset_password', element: <ResetPassword />, errorElement: <Error /> },
+  { path: '/verify', element: <Verify />, errorElement: <Error /> },
 ]);
 
 function App() {

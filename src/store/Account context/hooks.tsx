@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { AccountContext } from "."
-import type { AccountContextType, AccountState } from "../../interface/account.interface";
+import type { Account, AccountContextType, AccountState } from "../../interface/account.interface";
 import { account_actions } from "./state";
 import { api } from "../../config/axios";
 
@@ -17,18 +17,16 @@ const useFetchAccount = (): AccountState => {
         const fetch = async () => {
             try {
                 dispatch(account_actions.fetchAccountRequest());
-                const response = await api.get("employee/20");
+                const response = await api.get("employee/current");
                 const dataResponse = response.data;
-                console.log("data" + JSON.stringify(dataResponse));
                 if (dataResponse.success) {
-                    dispatch(account_actions.fetchAccountSuccess(dataResponse));
-                    console.log("current: " + JSON.stringify(account_state.currentAccount));
+                    dispatch(account_actions.fetchAccountSuccess(dataResponse.data as Account));
                 }
             } catch (error) {
                 dispatch(account_actions.fetchAccountError());
             }
         }
-        fetch();
+        setTimeout(fetch, 5000);
     }, []);
 
     return account_state;

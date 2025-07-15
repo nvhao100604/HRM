@@ -6,3 +6,7 @@ export { default as Recruitment } from './recruitment/page'
 export { default as Statistic } from './statistic/page'
 export { default as Error } from './error/page'
 export { default as Login } from './log_in/page'
+export { default as ResetPassword } from './reset_password/page'
+export { default as Verify } from './verify/page'
+export { default as Registration } from './create_account/page'
+
