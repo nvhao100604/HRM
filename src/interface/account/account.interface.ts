@@ -37,7 +37,8 @@ export const cloneAccount: Account = {
 export interface AccountState {
     isLoading: boolean,
     currentAccount: Account,
-    error: string
+    error: string,
+    isLoggedIn: boolean
 }
 
 export interface AccountAction {

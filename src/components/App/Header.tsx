@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { FiBell, FiLogIn, FiLogOut, FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import LogoutModal from "./LogoutModal";
+import LogoutModal from "../App/LogoutModal";
+import { useAccount } from "../../store/Account context";
+import { account_actions } from "../../store/Account context/state";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [account, dispatch] = useAccount();
     const navigate = useNavigate();
 
     const handelLogout = () => {
-        console.log("Logging out...")
+        console.log("Logging out...");
+        dispatch(account_actions.logOut());
+        setShowLogoutModal(false);
     }
     return (
         <header>

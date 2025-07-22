@@ -1,9 +1,9 @@
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from 'react-router-dom';
-import type { State } from "../../../interface/interfaces";
-import { actions } from "../../../store/UIContext/state";
+import type { State } from "../../interface/interfaces";
+import { actions } from "../../store/UIContext/state";
 import { useState } from "react";
-import { useUI } from "../../../store/UIContext";
+import { useUI } from "../../store/UIContext";
 
 const NavBar = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);

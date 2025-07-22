@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Query } from '../../interface/fetch_data.interface';
+import type { Query } from '../interface/service/fetch_data.interface';
 
 const useQuery = (initital: Query): [Query, (newQuery: Query) => void, () => void] => {
     const [query, setQuery] = useState(initital);

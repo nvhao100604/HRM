@@ -1,6 +1,7 @@
 import { useContext, type Dispatch } from "react"
 import type { State, UIAction, UIState } from "../../interface/interfaces";
 import { UIContext } from '.';
+import { actions } from "./state";
 
 const useUI = (): [UIState, Dispatch<UIAction>] => {
     const [state, dispatch] = useContext(UIContext);
@@ -14,4 +15,9 @@ const getCurrentUIState = (): State => {
 
     return currentState;
 }
-export { useUI, getCurrentUIState };
+
+const resetState = () => {
+    const [state, dispatch] = useUI();
+    dispatch(actions.resetUIState());
+}
+export { useUI, getCurrentUIState, resetState };

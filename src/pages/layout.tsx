@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Header, NavBar, PureLoading } from "../components/UI components/app";
+import { Header, NavBar, PureLoading } from "../components/index";
+import { useFetchAccount } from "../store/Account context";
 
 const DashboardLayout = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [account, dispatch] = useFetchAccount();
+
+  if (account.isLoggedIn) {
+    console.log(JSON.stringify(account.currentAccount));
+  }
 
   useEffect(() => {
     const timerId = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 2000);
 
     return () => {
       clearTimeout(timerId);
@@ -29,7 +35,13 @@ const DashboardLayout = () => {
                 <PureLoading />
               </div>
               :
-              <Outlet />
+              (
+                !account.isLoggedIn ?
+                  <div>Please log in</div>
+                  :
+                  <Outlet />
+              )
+
             }
           </div>
         </div>

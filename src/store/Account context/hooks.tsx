@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { AccountContext } from "."
-import type { Account, AccountContextType, AccountState } from "../../interface/account.interface";
+import type { Account, AccountContextType, AccountState } from "../../interface/account/account.interface";
 import { account_actions } from "./state";
 import { api } from "../../config/axios";
 
@@ -10,7 +10,7 @@ const useAccount = (): AccountContextType => {
     return [account_state, dispatch];
 }
 
-const useFetchAccount = (): AccountState => {
+const useFetchAccount = (): AccountContextType => {
     const [account_state, dispatch] = useAccount();
 
     useEffect(() => {
@@ -26,9 +26,9 @@ const useFetchAccount = (): AccountState => {
                 dispatch(account_actions.fetchAccountError());
             }
         }
-        setTimeout(fetch, 5000);
+        setTimeout(fetch, 4000);
     }, []);
 
-    return account_state;
+    return [account_state, dispatch];
 }
 export { useAccount, useFetchAccount };

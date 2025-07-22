@@ -1,5 +1,5 @@
 import type { Feature } from "../../../interface/interfaces"
-import { Section } from "../app"
+import { Section } from "../../../components"
 
 const employeeFeatures: Feature[] = [
     {

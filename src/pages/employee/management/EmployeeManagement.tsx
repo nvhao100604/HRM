@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaSort } from 'react-icons/fa';
-import { useFetchList, useQuery } from '../../../components/hooks/index.ts';
-import { PageSegmentation } from '../app/index.ts';
-import EmployeeAdd from './EmployeeAddModal.tsx';
-import AccountOverview from './AccountOverview.tsx';
+import { PageSegmentation } from '../../../components/index.ts';
 import { defaultQuery, type Employee } from '../../../interface/interfaces.ts';
 import { getCurrentUIState } from '../../../store/UIContext/hooks.tsx';
+import EmployeeAdd from '../add/EmployeeAddModal.tsx';
+import AccountOverview from '../overview/AccountOverview.tsx';
+import { useFetchList, useQuery } from '../../../hooks';
 
 const EmployeeManagement = () => {
   const [idTemp, setIdTemp] = useState('0');
@@ -19,6 +19,7 @@ const EmployeeManagement = () => {
   const data = useFetchList(path, query);
   //
   const handleSetData = (dataField: string, newData: string | number) => {
+    console.log(dataField, newData)
     updateQuery({ [dataField]: newData });
   }
 
@@ -55,23 +56,28 @@ const EmployeeManagement = () => {
                 <table className="min-w-full table-auto">
                   <thead >
                     <tr className="bg-gray-50 border-b border-gray-200">
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase 
+                      tracking-wider cursor-pointer col-span-1"
                       >
                         Employee ID <FaSort className="inline ml-1" />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase
+                      tracking-wider cursor-pointer col-span-2"
                       >
                         Full Name <FaSort className="inline ml-1" />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase 
+                      tracking-wider cursor-pointer col-span-3"
                       >
                         Email <FaSort className="inline ml-1" />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase 
+                      tracking-wider cursor-pointer col-span-2"
                       >
                         Phone number <FaSort className="inline ml-1" />
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase 
+                      tracking-wider cursor-pointer col-span-2"
                       >
                         Status <FaSort className="inline ml-1" />
                       </th>
@@ -111,8 +117,8 @@ const EmployeeManagement = () => {
             </div>
 
             <PageSegmentation
-              onSetPrevious={() => handleSetData("page", (query.page ?? 1 - 1))}
-              onSetAfter={() => handleSetData("page", (query.page ?? 1 + 1))}
+              onSetPrevious={() => handleSetData("page", ((query.page ?? 1) - 1))}
+              onSetAfter={() => handleSetData("page", ((query.page ?? 1) + 1))}
               currentPage={query.page ?? 0}
               totalItems={data.data.length}
               totalPages={data.totalPages}
@@ -141,7 +147,11 @@ const EmployeeManagement = () => {
                 <div>123</div>
               </div>
             </div>
-            <EmployeeAdd />
+            <div className='flex bg-red-500'>
+              <EmployeeAdd />
+              <EmployeeAdd />
+            </div>
+
             {showDetail && (<AccountOverview employeeId={idTemp} onClose={handleCloseDetail} />)}
           </div>
 

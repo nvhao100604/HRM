@@ -1,4 +1,4 @@
-import { cloneAccount, type Account, type AccountAction, type AccountState } from "../../../interface/account.interface";
+import { cloneAccount, type Account, type AccountAction, type AccountState } from "../../../interface/account/account.interface";
 import { FETCH_ACCOUNT_ERROR, FETCH_ACCOUNT_REQUEST, FETCH_ACCOUNT_SUCCESS, LOG_IN, LOG_OUT } from "./constants";
 
 const initial_account: Account = cloneAccount;
@@ -6,23 +6,20 @@ const initial_account: Account = cloneAccount;
 const init_account_state: AccountState = {
     isLoading: false,
     currentAccount: initial_account,
-    error: ""
+    error: "",
+    isLoggedIn: false
 }
 
 const reducer = (state: AccountState, action: AccountAction) => {
     switch (action.type) {
-        case LOG_IN: {
-            const newState: Account = action.payload ?? initial_account;
-            return {
-                ...state,
-                currentAccount: newState
-            }
-        };
         case LOG_OUT: {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
             const resetState: Account = initial_account;
             return {
                 ...state,
-                currentAccount: resetState
+                currentAccount: resetState,
+                isLoggedIn: false
             };
         };
         case FETCH_ACCOUNT_REQUEST: {
@@ -39,7 +36,8 @@ const reducer = (state: AccountState, action: AccountAction) => {
             return {
                 ...state,
                 isLoading: false,
-                currentAccount: newAccountState
+                currentAccount: newAccountState,
+                isLoggedIn: true
             }
         }
         case FETCH_ACCOUNT_ERROR: {

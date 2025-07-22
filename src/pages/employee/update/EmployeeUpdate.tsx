@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { FiCamera } from 'react-icons/fi';
 import { FaUserPlus } from 'react-icons/fa';
 import { employeeDefaultDataForm, type EmployeeDataForm, type RadioItems } from '../../../interface/interfaces';
-import { InputField, RadioVariant, SubmitComponent } from '../../../components/UI components/app';
+import { InputField, Radio, Submit } from '../../../components';
 import { apiFile } from '../../../config/axios';
 
 const genderOption: RadioItems[] = [
@@ -67,8 +67,8 @@ const EmployeeAddModal = ({ formData, imgUrl, isOpen, onClose, onChange, onImage
               formData={formData.citizenIdentificationCard}
               onChange={onChange}
             />
-            <RadioVariant radioName="gender" radioItems={genderOption} onSetData={onChange} />
-            <SubmitComponent feature='Add Employee' text='Adding...' isLoading={isLoading} onClose={onClose} />
+            <Radio radioName="gender" radioItems={genderOption} onSetData={onChange} />
+            <Submit feature='Add Employee' text='Adding...' isLoading={isLoading} onClose={onClose} />
 
           </form>
         </div>

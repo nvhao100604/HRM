@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardLayout from "./pages/layout";
 import { Department, Employee, Error, Home, Login, Payroll, Recruitment, ResetPassword, Statistic, Verify } from "./pages";
-import { EmployeeIndex, EmployeeManagement } from "./components/UI components/employee";
+import { EmployeeIndex, EmployeeManagement } from "./pages/employee";
 const router = createBrowserRouter([
   {
     path: '/',

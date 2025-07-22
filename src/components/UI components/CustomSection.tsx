@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import type { Feature } from '../../../interface/interfaces';
+import type { Feature } from '../../interface/interfaces';
 
 const SectionChild = ({ feature }: { feature: Feature }) => (
     <div className="bg-blue-50 dark:bg-gray-700 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { api } from "../../config/axios";
-import { defaultEmployee, type Employee } from "../../interface/interfaces";
+import { api } from "../config/axios";
+import { defaultEmployee, type Employee } from "../interface/interfaces";
 
 //input: id
 const useFetchInfo = (path: string, id: string) => {

@@ -1,4 +1,4 @@
-import type { Account, AccountAction } from "../../../interface/account.interface";
+import type { Account, AccountAction } from "../../../interface/account/account.interface";
 import { FETCH_ACCOUNT_ERROR, FETCH_ACCOUNT_REQUEST, FETCH_ACCOUNT_SUCCESS, LOG_IN, LOG_OUT } from "./constants";
 
 const logIn = (payload: Account): AccountAction => ({

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BsExclamationCircleFill } from "react-icons/bs";
-import type { SelectItem } from "../../../interface/interfaces";
+import type { SelectItem } from "../../interface/interfaces";
 
 const TypeSelect = ({ employmentTypes, textType, name }:
   { employmentTypes: SelectItem[], textType: string, name: string }) => {

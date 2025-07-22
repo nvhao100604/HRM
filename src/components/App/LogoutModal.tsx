@@ -1,3 +1,4 @@
+
 const LogoutModal = ({onShowLogoutModal, onLogout}:
     {onShowLogoutModal: () => void, onLogout: () => void}) => {
     return (

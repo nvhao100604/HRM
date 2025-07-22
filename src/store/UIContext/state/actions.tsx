@@ -1,5 +1,5 @@
 import { ADD_UI_STATE, RESET_UI_STATE, SET_UI_STATE } from "./constants";
-import type { State, UIAction } from "../../../interface/UIState.interface";
+import type { State, UIAction } from '../../../interface/interfaces';
 
 const setUIState = (payload: State): UIAction => ({
     type: SET_UI_STATE,

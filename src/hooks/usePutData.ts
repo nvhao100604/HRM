@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { api, apiFile } from "../../config/axios"
-import { defaultEmployee, type Employee, type employeeDataPost } from "../../interface/interfaces"
+import { api, apiFile } from "../config/axios"
+import { defaultEmployee, type Employee } from "../interface/interfaces"
 
 
 const usePutData = (path: string, dataPut: employeeDataPost) => {

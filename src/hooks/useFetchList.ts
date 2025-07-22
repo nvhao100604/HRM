@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
-import { TempDataResponse, type DataResponse, type Query } from "../../interface/interfaces";
-import { api } from './../../config/axios/index';
+import { TempDataResponse, type DataResponse, type Query } from "../interface/interfaces";
+import { api } from './../config/axios/index';
 
 //input:
 //+ Path: Thư mục tương ứng đối tượng cần lọc
@@ -25,6 +25,7 @@ const useFetchList = (path: string, query: Query) => {
             try {
                 const handledQuery = handleQuery(query);
                 const queryString = new URLSearchParams(handledQuery as any).toString();
+                console.log(queryString)
                 const response = await api.get(`${path}/filter?${queryString}`);
                 setData({
                     data: response.data.data.content,

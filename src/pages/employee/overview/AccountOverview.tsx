@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState, type ChangeEvent } from 'react'
 import { FiCamera, FiEdit2 } from 'react-icons/fi';
-import { useFetchGet, useFetchPut } from '../../../components/hooks';
-import { defaultEmployee, type Employee } from '../../../interface/employee.interface';
+import { useFetchGet, useFetchPut } from '../../../hooks';
+import { defaultEmployee, type Employee } from '../../../interface/employee/employee.interface';
 
 const DEFAULT_URL = "https://res.cloudinary.com/dswwzexhq/image/upload/";
 function AccountOverview({ employeeId, onClose }: { employeeId: string, onClose: () => void }) {
@@ -26,8 +26,8 @@ function AccountOverview({ employeeId, onClose }: { employeeId: string, onClose:
 
   useEffect(() => {
     if (confirmUpload) {
-      const data_after_fetch = useFetchPut('employee', dat)
-      set_data_after_put()
+      const data_after_fetch = useFetchPut('employee', data_after_put)
+      // set_data_after_put()
     }
   }, [confirmUpload]);
 

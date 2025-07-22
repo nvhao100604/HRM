@@ -3,7 +3,7 @@ import FormLabel from '@mui/joy/FormLabel';
 import Radio from '@mui/joy/Radio';
 import RadioGroup from '@mui/joy/RadioGroup';
 import type { ChangeEvent } from 'react';
-import type { RadioItems } from '../../../interface/interfaces';
+import type { RadioItems } from '../../interface/interfaces';
 
 function CustomRadioVariants({ radioName, radioItems, onSetData }:
   { radioName: string, radioItems: RadioItems[], onSetData: (e: ChangeEvent<HTMLInputElement>) => void }) {
