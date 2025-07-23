@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import type { Feature } from '../../interface/interfaces';
 
 const SectionChild = ({ feature }: { feature: Feature }) => (
-    <div className="bg-blue-50 dark:bg-gray-700 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
+    <div className="bg-blue-50 dark:bg-gray-700 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer"
     >
         <Link to={feature.featurePath}>
             <h2 className="text-xl md:text-2xl font-bold mb-4">{feature.featureName}</h2>
@@ -20,7 +20,7 @@ const CustomSection = ({ currentSection, featureList }: { currentSection: string
                 <span className="text-blue-600 font-semibold text-base md:text-lg">{currentSection}</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300 cursor-pointer">
                     <h2 className="text-xl md:text-2xl font-bold mb-4">{currentSection} Overview</h2>
                     <p className="text-gray-600 dark:text-gray-300">
                         Welcome to the {currentSection} section of HRM dashboard.

@@ -1,6 +1,6 @@
-export { default as Header } from './App/Header'
+export { default as Header } from './App/Header/Header'
 export { default as NavBar } from './App/Navigation'
-export { default as LogOut } from './App/LogoutModal'
+export { default as LogOut } from './App/Header/LogoutModal'
 export { default as Modal } from './UI components/modal'
 export { default as Radio } from './UI components/CustomRadioVariants'
 export { default as Section } from './UI components/CustomSection'

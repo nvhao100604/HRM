@@ -11,7 +11,7 @@ const NavBar = () => {
     const { states, currentState } = section;
     const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
     return (
-        <>
+        <div className="fixed z-40">
             <button
                 className="lg:hidden fixed top-4 left-48 z-50 p-2 rounded-md bg-blue-600 text-white 
                 transform hover:scale-110 transition-transform duration-200"
@@ -29,7 +29,7 @@ const NavBar = () => {
                     }`}
             >
                 <div className="h-full bg-white dark:bg-gray-800 shadow-lg">
-                    <div className="p-5 border-b dark:border-gray-700">
+                    <div className="p-5">
                         <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">HRM System</h1>
                     </div>
 
@@ -55,7 +55,7 @@ const NavBar = () => {
                     </nav>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
