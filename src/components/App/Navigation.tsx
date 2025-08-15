@@ -39,8 +39,7 @@ const NavBar = () => {
                                 <button
                                     onClick={() => {
                                         dispatchUI(actions.setUIState(item))
-                                    }
-                                    }
+                                    }}
                                     className={`w-full flex items-center space-x-3 p-3 rounded-lg mb-2 transition-all duration-200 transform hover:scale-105 
                       ${currentState.name === item.name
                                             ? "bg-blue-600 text-white shadow-md"

@@ -1,5 +1,9 @@
 import type { Dispatch } from "react"
 
+export interface AccountCache {
+    [key: number]: Account;
+}
+
 export interface Account {
     id?: number,
     firstName?: string,

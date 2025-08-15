@@ -10,6 +10,7 @@ export * from './UI components/IsLoadingBox'
 export { default as PageSegmentation } from './UI components/PageSegmentation'
 export { default as Submit } from './UI components/SubmitComponent'
 export { default as TableFromList } from './UI components/TableFromList'
+export { default as DatePickers } from './UI components/DatePicker'
 
 
 

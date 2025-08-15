@@ -1,17 +1,13 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaSearch, FaSort } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 import { PageSegmentation } from '../../../components/index.ts';
 import { defaultQuery, type Employee } from '../../../interface/interfaces.ts';
 import { getCurrentUIState } from '../../../store/UIContext/hooks.tsx';
 import EmployeeAdd from '../add/EmployeeAddModal.tsx';
-import AccountOverview from '../overview/AccountOverview.tsx';
 import { useFetchList, useQuery } from '../../../hooks';
+import EmployeeList from './employee.employee_list.tsx';
 
 const EmployeeManagement = () => {
-  const [idTemp, setIdTemp] = useState('0');
-  const [showDetail, setShowDetail] = useState(false);
-
   const currentState = getCurrentUIState();
   const path = currentState.path;
 
@@ -22,16 +18,6 @@ const EmployeeManagement = () => {
     console.log(dataField, newData)
     updateQuery({ [dataField]: newData });
   }
-
-  const handleDetail = (id: string) => {
-    setIdTemp(id);
-    setShowDetail(true);
-  }
-
-  const handleCloseDetail = () => {
-    setShowDetail(false);
-  }
-
   return (
     <>
       {data.data && (
@@ -52,67 +38,8 @@ const EmployeeManagement = () => {
                 </div>
               </div>
 
-              <div className={`overflow-x-auto lg:h-136 bg-white rounded-lg shadow `}>
-                <table className="min-w-full table-auto">
-                  <thead >
-                    <tr className="bg-gray-50 border-b border-gray-200">
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase 
-                      tracking-wider cursor-pointer col-span-1"
-                      >
-                        Employee ID <FaSort className="inline ml-1" />
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase
-                      tracking-wider cursor-pointer col-span-2"
-                      >
-                        Full Name <FaSort className="inline ml-1" />
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase 
-                      tracking-wider cursor-pointer col-span-3"
-                      >
-                        Email <FaSort className="inline ml-1" />
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase 
-                      tracking-wider cursor-pointer col-span-2"
-                      >
-                        Phone number <FaSort className="inline ml-1" />
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase 
-                      tracking-wider cursor-pointer col-span-2"
-                      >
-                        Status <FaSort className="inline ml-1" />
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {(data.data as Employee[]).map((employeeData) => (
-                      <tr
-                        key={employeeData.id}
-                        onDoubleClick={() => handleDetail(employeeData.id)}
-                        className="hover:bg-gray-200 cursor-pointer transition-colors duration-150"
-                      >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {employeeData.id}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {employeeData.firstName} {employeeData.lastName ?? ""}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {employeeData.email}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {employeeData.phone}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full`}>
-                            {/* {statusIcons[booking.status]}
-                        {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)} */}
-                            {employeeData.status}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className={`overflow-x-auto overflow-y-auto lg:h-136 bg-white rounded-lg shadow `}>
+                <EmployeeList employeeList={(data.data as Employee[])} />
               </div>
             </div>
 
@@ -147,12 +74,9 @@ const EmployeeManagement = () => {
                 <div>123</div>
               </div>
             </div>
-            <div className='flex bg-red-500'>
-              <EmployeeAdd />
+            <div className='flex bg-red-500 justify-items-center place-items-center'>
               <EmployeeAdd />
             </div>
-
-            {showDetail && (<AccountOverview employeeId={idTemp} onClose={handleCloseDetail} />)}
           </div>
 
           <div className='absolute bottom-8'>

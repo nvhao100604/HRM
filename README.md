@@ -47,6 +47,12 @@ export default defineConfig({
   ```bash
   npm install @mui/material @emotion/react @emotion/styled
   ```
+    ```bash
+  npm install @mui/x-date-pickers
+  ```
+  ```bash
+  npm install dayjs
+  ```
   + React Router Dom:
   ```bash
   npm install react-router-dom

@@ -13,14 +13,17 @@ function CustomRadioVariants({ radioName, radioItems, onSetData }:
       <RadioGroup defaultValue={radioItems[0].id} name={radioName}
         onChange={onSetData}
       >
-        {radioItems && radioItems.map((item) => (
-          <Radio
-            key={item.id}
-            value={item.id}
-            label={item.label}
-            variant="outlined"
-          />
-        ))}
+        <div className='flex items-stretch place-content-between'>
+          {radioItems && radioItems.map((item) => (
+            <div key={item.id} className='w-1/3'>
+              <Radio
+                value={item.id}
+                label={item.label}
+                variant="outlined"
+              />
+            </div>
+          ))}
+        </div>
       </RadioGroup>
     </FormControl>
   );

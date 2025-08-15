@@ -1,5 +1,5 @@
-export interface Employee{
-    [key: string ]: string,
+export interface Employee {
+    [key: string]: string,
     id: string,
     firstName: string,
     lastName: string,
@@ -30,13 +30,13 @@ export const defaultEmployee: Employee = {
 }
 
 export interface EmployeeDataForm {
-    [key: string ]: string | File | null,
+    [key: string]: string | File | null ,
     firstName: string,
     lastName: string,
     email: string,
     phone: string,
     gender: string,
-    dateOfBirth: string,
+    dateOfBirth: string | null,
     address: string,
     image: File | null,
     citizenIdentificationCard: string,
@@ -49,7 +49,7 @@ export const employeeDefaultDataForm: EmployeeDataForm = {
     email: "",
     phone: "",
     gender: "",
-    dateOfBirth: "",
+    dateOfBirth: null,
     address: "",
     image: null,
     citizenIdentificationCard: "",

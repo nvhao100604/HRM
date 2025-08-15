@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { FiHome, FiRefreshCw } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useUI } from "../../store/UIContext";
+import { actions } from "../../store/UIContext/state";
 
 const ErrorPage = ({ errorCode = 404, errorMessage = "Oops! The page you're looking for couldn't be found" }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
-
+  const [state, dispatch] = useUI();
+  console.log(state)
   const handleRefresh = () => {
     setIsRefreshing(true);
     window.location.reload();
   };
 
-  const handleSetDefaultSection = () =>{
-    const jsonString = JSON.stringify("Home");
-    sessionStorage.setItem('currentSection', jsonString);
+  const handleSetDefaultSection = () => {
+    dispatch(actions.resetUIState())
   }
 
   return (
@@ -43,13 +45,13 @@ const ErrorPage = ({ errorCode = 404, errorMessage = "Oops! The page you're look
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button
-          className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 space-x-2"
-          aria-label="Return to home page"
-          onClick={handleSetDefaultSection}
+            className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 space-x-2"
+            aria-label="Return to home page"
+            onClick={handleSetDefaultSection}
           ><Link to={"/"}>
-            <FiHome className="text-xl" />
-            <span>Return Home</span>
-          </Link>
+              <FiHome className="text-xl" />
+              <span>Return Home</span>
+            </Link>
           </button>
 
           <button
@@ -65,7 +67,7 @@ const ErrorPage = ({ errorCode = 404, errorMessage = "Oops! The page you're look
 
         <div className="text-gray-500 text-sm">
           <p>Need help? Contact our support team at</p>
-          <a 
+          <a
             href="mailto:support@example.com"
             className="text-blue-600 hover:underline"
             aria-label="Email support"

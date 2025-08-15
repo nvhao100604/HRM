@@ -32,12 +32,12 @@ const Submenu = ({ setShowLogoutModal, setIsMenuOpen, isLoggedIn }
                 <FaInfo className="rounded-3xl bg-white p-1 text-gray-500 text-lg mr-2" />
                 Information
             </button>
-            <button
+            {/* <button
                 className="text-white right-0"
                 onClick={setIsMenuOpen}
             >
                 <FiX />
-            </button>
+            </button> */}
         </div>
     )
 }

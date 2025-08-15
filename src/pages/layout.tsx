@@ -1,36 +1,57 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Header, NavBar, PureLoading } from "../components/index";
-import { useFetchAccount } from "../store/Account context";
+import { useAccount, useFetchAccount } from "../store/Account context";
+import { account_actions } from "../store/Account context/state";
+import { api } from "../config/axios";
+import type { Account } from "../interface/interfaces";
 
 const DashboardLayout = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [account, dispatch] = useFetchAccount();
+  const [account_state, dispatch] = useAccount();
+  const fetchedRef = useRef<Account>(account_state.currentAccount);
+  useEffect(() => {
+    if (fetchedRef.current.id != 0) {
+      return;
+    }
 
-  if (account.isLoggedIn) {
-    console.log(JSON.stringify(account.currentAccount));
-  }
+    const fetch = async () => {
+      try {
+        dispatch(account_actions.fetchAccountRequest());
+        const response = await api.get("employee/current");
+        const dataResponse = response.data;
+        if (dataResponse.success) {
+          dispatch(account_actions.fetchAccountSuccess(dataResponse.data as Account));
+        }
+      } catch (error) {
+        dispatch(account_actions.fetchAccountError());
+      }
+    }
+    fetch();
+  }, [fetchedRef]);
+
+  // if (account.isLoggedIn) {
+  //   console.log(JSON.stringify(account.currentAccount));
+  // }
 
   useEffect(() => {
     const timerId = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 2500);
 
     return () => {
       clearTimeout(timerId);
     }
   })
   return (
-    <div className={`min-h-screen ${isDarkMode ? "dark" : ""}`}>
-      <div className="flex bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
+    <div className={`h-screen ${isDarkMode ? "dark" : ""}`}>
+      <div className="flex bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white h-[calc(100%_-_4rem)]">
         <NavBar />
-        <div className="top-0 z-30 fixed w-full">
-          <Header />
-        </div>
-        <div className="container p-4 md:p-6 animate-fadeIn h-[calc(100%_-_4rem)] ml-60 mt-14">
+        <Header />
+        <div className="container p-4 animate-fadeIn ml-60 mt-14 h-full">
           {isLoading ?
-            <div className="h-[calc(100%_-_4rem)] flex justify-center place-items-center">
+            <div className="h-full flex justify-center place-items-center m-auto">
               <PureLoading />
             </div>
             :
