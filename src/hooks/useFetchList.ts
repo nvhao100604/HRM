@@ -1,7 +1,6 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { TempDataResponse, type DataResponse, type Query } from "../interface/interfaces";
-import { api } from './../config/axios/index';
-
+import useSWR from 'swr';
+import { useMemo } from "react";
+import { type Query } from "../interface/interfaces";
 //input:
 //+ Path: Thư mục tương ứng đối tượng cần lọc
 //+ query: Các tiêu chỉ tìm kiếm phân trang
@@ -18,33 +17,17 @@ const handleQuery = (query: Query) => {
     return newQuery;
 }
 const useFetchList = (path: string, query: Query) => {
-    const [data, setData] = useState<DataResponse>(TempDataResponse);
-
-    useLayoutEffect(() => {
-        const fetchAPI = async () => {
-            try {
-                const handledQuery = handleQuery(query);
-                const queryString = new URLSearchParams(handledQuery as any).toString();
-                console.log(queryString)
-                const response = await api.get(`${path}/filter?${queryString}`);
-                setData({
-                    data: response.data.data.content,
-                    totalElements: response.data.data.totalElements,
-                    totalPages: response.data.data.totalPages
-                });
-            } catch (err) {
-                console.error(err);
-                setData(TempDataResponse);
-            }
-        }
-        fetchAPI();
-
-        return () => {
-            setData(TempDataResponse);
-        }
+    const handledQuery = handleQuery(query) ?? null;
+    const queryString = new URLSearchParams(handledQuery as any).toString();
+    const key = useMemo(() => {
+        return (path && query) ? `${path}/filter?${queryString}` : null
     }, [path, JSON.stringify(query)]);
+    const { data, error, isLoading } = useSWR(key);
+    if (data && data.data) {
+        console.log(data.data);
+    }
 
-    return data;
+    return { data, error, isLoading };
 }
 
 export default useFetchList;

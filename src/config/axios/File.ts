@@ -1,7 +1,8 @@
 import axios from "axios";
+import { BASE_BACK_END_URL } from "../constants";
 
 const apiFile = axios.create({
-    baseURL: "http://localhost:8080/api/v1/",
+    baseURL: BASE_BACK_END_URL,
     headers: {
         "Content-Type": "multipart/form-data"
     },

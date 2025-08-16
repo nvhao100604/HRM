@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardLayout from "./pages/layout";
 import { Department, Employee, Error, Home, Login, Payroll, Recruitment, ResetPassword, Statistic, Verify } from "./pages";
 import { EmployeeIndex, EmployeeManagement } from "./pages/employee";
+import { SWRConfig } from "swr";
+import { api } from "./config/axios";
 const router = createBrowserRouter([
   {
     path: '/',
@@ -30,10 +32,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const fetcher = (url: string) => api.get(url).then(res => res.data);
   return (
-    <>
+    <SWRConfig value={{ fetcher, shouldRetryOnError: false }}>
       <RouterProvider router={router} />
-    </>
+    </SWRConfig >
   )
 }
 

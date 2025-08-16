@@ -3,47 +3,57 @@ import { FaUserPlus } from 'react-icons/fa';
 import { employeeDefaultDataForm } from '../../../interface/interfaces';
 import { apiFile } from '../../../config/axios';
 import EmployeeModal from '../employee.modal';
+import { mutate } from 'swr';
+import dayjs from 'dayjs';
 
 ///Employee Add button
 const EmployeeAdd = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [formData, setFormData] = useState(employeeDefaultDataForm);
+  const [formAddData, setFormData] = useState(employeeDefaultDataForm);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const image = (e.target.files) ? e.target.files[0] : null;
     setFormData({
-      ...formData,
+      ...formAddData,
       image: image
     })
   };
 
   useEffect(() => {
-    if (formData.image) setImgUrl(URL.createObjectURL(formData.image));
+    if (formAddData.image) setImgUrl(URL.createObjectURL(formAddData.image));
     //Clean up
     return () => {
       setImgUrl(null);
     }
-  }, [formData.image]);
+  }, [formAddData.image]);
 
-  useEffect(() => {
-    const onAdd = async (e: SubmitEvent) => {
+  const onSubmitAdd = async (e: SubmitEvent) => {
+    try {
       e.preventDefault();
-      const response = await apiFile.post("employee", formData);
-      setFormData(employeeDefaultDataForm);
-      alert(response.data.message);
+      if (formAddData.dateOfBirth == null) {
+        const now = dayjs();
+        setFormData({
+          ...formAddData,
+          dateOfBirth: now.toString()
+        })
+      }
+      const response = await apiFile.post("employee", formAddData);
+      if (response.data.success) {
+        mutate("employee/filter");
+        alert(response.data.message);
+        setFormData(employeeDefaultDataForm);
+        setIsAddModalOpen(false);
+      }
+    } catch (error) {
+      console.error(error);
     }
-    //Create eventlistener
-    document.addEventListener("submit", onAdd);
-    //Clean up
-    return () => {
-      document.removeEventListener("submit", onAdd);
-    }
-  }, [formData])
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.name);
     setFormData({
-      ...formData,
+      ...formAddData,
       [e.target.name]: e.target.value
     });
   };
@@ -62,12 +72,13 @@ const EmployeeAdd = () => {
 
       <EmployeeModal
         textModal='Add'
-        formData={formData}
+        formData={formAddData}
         imgUrl={imgUrl}
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onChange={handleChange}
         onImageUpload={handleImageUpload}
+        onSubmit={(e) => onSubmitAdd(e)}
       />
     </div>
   );

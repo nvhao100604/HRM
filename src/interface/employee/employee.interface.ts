@@ -1,6 +1,6 @@
 export interface Employee {
-    [key: string]: string,
-    id: string,
+    [key: string]: string | number,
+    id: number,
     firstName: string,
     lastName: string,
     email: string,
@@ -11,11 +11,12 @@ export interface Employee {
     position: string,
     image: string,
     citizenIdentificationCard: string,
-    status: string
+    status: string,
+    roleId: number
 }
 
 export const defaultEmployee: Employee = {
-    id: '0',
+    id: 0,
     firstName: '',
     lastName: "",
     email: "",
@@ -26,11 +27,13 @@ export const defaultEmployee: Employee = {
     position: "",
     image: "",
     citizenIdentificationCard: "",
-    status: ""
+    status: "",
+    roleId: 1
 }
 
 export interface EmployeeDataForm {
-    [key: string]: string | File | null ,
+    [key: string]: string | number | File | null,
+    id: number,
     firstName: string,
     lastName: string,
     email: string,
@@ -40,18 +43,21 @@ export interface EmployeeDataForm {
     address: string,
     image: File | null,
     citizenIdentificationCard: string,
-    status: string
+    status: string,
+    roleId: number
 }
 
 export const employeeDefaultDataForm: EmployeeDataForm = {
+    id: 0,
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    gender: "",
+    gender: "Male",
     dateOfBirth: null,
     address: "",
     image: null,
     citizenIdentificationCard: "",
-    status: ""
+    status: "",
+    roleId: 1
 }

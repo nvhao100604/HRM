@@ -11,6 +11,7 @@
   + MUI (Material UI)
   + React Router DOM
   + react-chartjs
+  + SWR
 ## Support tools:
   + UI: purecode.ai
 ## Installation:
@@ -63,6 +64,10 @@ export default defineConfig({
   ```
   ```bash
   chart.js
+  ```
+  + SWR:
+  ```bash
+  npm i swr
   ```
 ### Install Axios:
 ```bash

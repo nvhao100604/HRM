@@ -3,9 +3,11 @@ import { employeeDefaultDataForm, type EmployeeDataForm } from '../../../interfa
 import { apiFile } from '../../../config/axios';
 import { type Employee } from './../../../interface/employee/employee.interface';
 import EmployeeModal from '../employee.modal';
+import dayjs from 'dayjs';
 
 const CreateEmployeeForm = (employee: Employee) => {
   const employeeForm: EmployeeDataForm = {
+    id: employee.id,
     firstName: employee.firstName,
     lastName: employee.lastName,
     email: employee.email,
@@ -15,14 +17,15 @@ const CreateEmployeeForm = (employee: Employee) => {
     citizenIdentificationCard: employee.citizenIdentificationCard,
     address: employee.address,
     status: employee.status,
-    image: null
+    image: null,
+    roleId: employee.roleId
   }
 
   return employeeForm;
 }
 ///Employee update button
 const EmployeeUpdate = ({ employee }: { employee: Employee }) => {
-  const [isAddModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(CreateEmployeeForm(employee));
   const [imgUrl, setImgUrl] = useState<string | null>(() => {
     return employee.image
@@ -45,21 +48,35 @@ const EmployeeUpdate = ({ employee }: { employee: Employee }) => {
   }, [formData.image]);
 
   useEffect(() => {
-    const onUpdate = async (e: SubmitEvent) => {
-      e.preventDefault();
-      const response = await apiFile.put("employee", formData);
-      setFormData(employeeDefaultDataForm);
-      alert(response.data.message);
-    }
-    //Create eventlistener
-    document.addEventListener("submit", onUpdate);
-    //Clean up
-    return () => {
-      document.removeEventListener("submit", onUpdate);
-    }
-  }, [formData])
+    console.log("check date of birth: ", formData.dateOfBirth);
+  }, [formData.dateOfBirth])
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onSubmitUpdate = async (e: any) => {
+    try {
+      e.preventDefault();
+      if (formData.dateOfBirth == null) {
+        const now = dayjs().format('YYYY-MM-DD');
+        console.log("check now:", now);
+        setFormData({
+          ...formData,
+          dateOfBirth: now
+        })
+      }
+      const response = await apiFile.put("employee", formData);
+      console.log(response.data.errors);
+      if (!response.data.success) {
+        console.log("check form after:", formData);
+        console.log(response.data.errors);
+      }
+      alert(response.data.message);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error(error);
+      console.log(formData);
+    }
+  }
+
+  const handleChange = (e: any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -81,10 +98,11 @@ const EmployeeUpdate = ({ employee }: { employee: Employee }) => {
         textModal='Update'
         formData={formData}
         imgUrl={imgUrl}
-        isOpen={isAddModalOpen}
+        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onChange={handleChange}
         onImageUpload={handleImageUpload}
+        onSubmit={(e) => onSubmitUpdate(e)}
       />
     </div>
   );

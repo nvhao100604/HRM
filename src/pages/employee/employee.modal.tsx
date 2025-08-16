@@ -11,15 +11,16 @@ const genderOption: RadioItems[] = [
     { id: "other", label: "Other" }
 ]
 
-const EmployeeModal = ({ textModal, formData, imgUrl, isOpen, onClose, onChange, onImageUpload }:
+const EmployeeModal = ({ textModal, formData, imgUrl, isOpen, onClose, onChange, onImageUpload, onSubmit }:
     {
         textModal: string,
         formData: EmployeeDataForm,
         imgUrl: string | null,
         isOpen: boolean;
         onClose: () => void;
-        onChange: (e: ChangeEvent<HTMLInputElement>) => void,
-        onImageUpload: (e: ChangeEvent<HTMLInputElement>) => void
+        onChange: (e: any) => void,
+        onImageUpload: (e: any) => void,
+        onSubmit: (e: any) => void
     }) => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -42,7 +43,7 @@ const EmployeeModal = ({ textModal, formData, imgUrl, isOpen, onClose, onChange,
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-2xl font-bold text-blue-600">{`${textModal} Employee`}</h2>
                     </div>
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={onSubmit}>
                         <div className="flex items-stretch place-content-between p-2">
                             <div className="relative">
                                 <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-grey-400">
@@ -76,7 +77,7 @@ const EmployeeModal = ({ textModal, formData, imgUrl, isOpen, onClose, onChange,
                             onChange={onChange}
                         />
                         <DatePickers labelText="Date of birth" initDate={formData.dateOfBirth} />
-                        <Radio radioName="Gender" radioItems={genderOption} onSetData={onChange} />
+                        <Radio name="gender" radioName="Gender" radioItems={genderOption} radioInitValue={formData.gender} onSetData={onChange} />
                         <Submit feature={`${textModal} Employee`} text={`On ${textModal}...`} isLoading={isLoading} onClose={onClose} />
                     </form>
                 </div>
