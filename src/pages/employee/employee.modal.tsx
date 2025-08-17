@@ -27,7 +27,7 @@ const EmployeeModal = ({ textModal, formData, imgUrl, isOpen, onClose, onChange,
     useEffect(() => {
         const timerId = setTimeout(() => {
             setIsLoading(false);
-        }, 2000);
+        }, 3500);
 
         return () => {
             clearTimeout(timerId);

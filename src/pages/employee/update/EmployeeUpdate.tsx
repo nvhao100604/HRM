@@ -4,6 +4,9 @@ import { apiFile } from '../../../config/axios';
 import { type Employee } from './../../../interface/employee/employee.interface';
 import EmployeeModal from '../employee.modal';
 import dayjs from 'dayjs';
+import { mutate } from 'swr';
+import { useNotify } from '../../../store/ToastifyContext';
+import { TOASTIFY_ERROR, TOASTIFY_SUCCESS } from '../../../config/constants';
 
 const CreateEmployeeForm = (employee: Employee) => {
   const employeeForm: EmployeeDataForm = {
@@ -25,6 +28,7 @@ const CreateEmployeeForm = (employee: Employee) => {
 }
 ///Employee update button
 const EmployeeUpdate = ({ employee }: { employee: Employee }) => {
+  const notify = useNotify();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(CreateEmployeeForm(employee));
   const [imgUrl, setImgUrl] = useState<string | null>(() => {
@@ -64,15 +68,15 @@ const EmployeeUpdate = ({ employee }: { employee: Employee }) => {
       }
       const response = await apiFile.put("employee", formData);
       console.log(response.data.errors);
-      if (!response.data.success) {
-        console.log("check form after:", formData);
-        console.log(response.data.errors);
+      if (response.data.success) {
+        // alert(response.data.message);
+        notify.notify(response.data.message, TOASTIFY_SUCCESS);
+        mutate("employee/filter");
+        setIsModalOpen(false);
       }
-      alert(response.data.message);
-      setIsModalOpen(false);
     } catch (error) {
       console.error(error);
-      console.log(formData);
+      notify.notify("Some errors occurred", TOASTIFY_ERROR);
     }
   }
 

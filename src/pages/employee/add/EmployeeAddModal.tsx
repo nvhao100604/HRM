@@ -5,12 +5,15 @@ import { apiFile } from '../../../config/axios';
 import EmployeeModal from '../employee.modal';
 import { mutate } from 'swr';
 import dayjs from 'dayjs';
+import { useNotify } from '../../../store/ToastifyContext';
+import { TOASTIFY_ERROR, TOASTIFY_SUCCESS } from '../../../config/constants';
 
 ///Employee Add button
 const EmployeeAdd = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [formAddData, setFormData] = useState(employeeDefaultDataForm);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
+  const notify = useNotify();
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const image = (e.target.files) ? e.target.files[0] : null;
@@ -41,12 +44,14 @@ const EmployeeAdd = () => {
       const response = await apiFile.post("employee", formAddData);
       if (response.data.success) {
         mutate("employee/filter");
-        alert(response.data.message);
+        // alert(response.data.message);
+        notify.notify(response.data.message, TOASTIFY_SUCCESS);
         setFormData(employeeDefaultDataForm);
         setIsAddModalOpen(false);
       }
     } catch (error) {
       console.error(error);
+      notify.notify("Some errors occurred", TOASTIFY_ERROR);
     }
   }
 

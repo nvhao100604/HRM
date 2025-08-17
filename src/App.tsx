@@ -34,7 +34,7 @@ const router = createBrowserRouter([
 function App() {
   const fetcher = (url: string) => api.get(url).then(res => res.data);
   return (
-    <SWRConfig value={{ fetcher, shouldRetryOnError: false }}>
+    <SWRConfig value={{ fetcher, shouldRetryOnError: false, revalidateOnFocus: false, loadingTimeout: 5000 }}>
       <RouterProvider router={router} />
     </SWRConfig >
   )

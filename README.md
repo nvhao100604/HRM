@@ -10,6 +10,7 @@
   + React
   + MUI (Material UI)
   + React Router DOM
+  + React-toastify:
   + react-chartjs
   + SWR
 ## Support tools:
@@ -58,6 +59,10 @@ export default defineConfig({
   ```bash
   npm install react-router-dom
   ```
+  + React-toastify:
+  ```bash
+  npm install --save react-toastify
+  ```
   + Chart:
   ```bash
   react-chartjs-2
@@ -69,6 +74,7 @@ export default defineConfig({
   ```bash
   npm i swr
   ```
+
 ### Install Axios:
 ```bash
   npm install axios

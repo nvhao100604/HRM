@@ -14,7 +14,7 @@ const EmployeeManagement = () => {
   }
   return (
     <>
-      <div className="container grid grid-cols-7 mx-auto px-4 py-0 items-stretch">
+      <div className="container grid grid-cols-7 mx-auto px-4 py-2 items-stretch">
         <div className='col-span-5'>
           <div className="mb-6">
             <div className="flex items-center justify-between mb-4">

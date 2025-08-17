@@ -1,10 +1,10 @@
-
 import { FaAccessibleIcon, FaSort } from 'react-icons/fa';
 import EmployeeUpdate from '../update/EmployeeUpdate';
 import type { Employee, Query } from '../../../interface/interfaces';
 import DeleteEmployee from '../delete/employee.delete';
 import { useFetchList } from '../../../hooks';
 import { PageSegmentation } from '../../../components';
+import EmployeeListSkeleton from './employee.employee_list_skeleton';
 
 const EmployeeList = ({ query, handleSetData }: { query: Query, handleSetData: (key: string, data: string | number) => void }) => {
     const { data, error, isLoading } = useFetchList("employee", query);
@@ -12,13 +12,12 @@ const EmployeeList = ({ query, handleSetData }: { query: Query, handleSetData: (
     const employeeList = (data && data.data) ? data.data : {};
     if (error) {
         console.error(error);
-        return (<div>Lỗi</div>)
     }
 
     if (isLoading) {
         return (
             <>
-                Loading...
+                <EmployeeListSkeleton />
             </>
         )
     }

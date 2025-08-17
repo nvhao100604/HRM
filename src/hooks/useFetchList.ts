@@ -19,10 +19,15 @@ const handleQuery = (query: Query) => {
 const useFetchList = (path: string, query: Query) => {
     const handledQuery = handleQuery(query) ?? null;
     const queryString = new URLSearchParams(handledQuery as any).toString();
-    const key = useMemo(() => {
-        return (path && query) ? `${path}/filter?${queryString}` : null
-    }, [path, JSON.stringify(query)]);
-    const { data, error, isLoading } = useSWR(key);
+    const key = (path && query) ? `${path}/filter?${queryString}` : null
+
+    const { data, error, isLoading } = useSWR(key, {
+        suspense: true,
+        keepPreviousData: true,
+        fallbackData: [],
+        dedupingInterval: 20000
+    });
+
     if (data && data.data) {
         console.log(data.data);
     }
