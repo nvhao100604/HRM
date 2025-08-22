@@ -1,3 +1,5 @@
+import { DEFAULT_PAGE, DEFAULT_SIZE } from "../../config/constants"
+
 //Data Get
 export interface Query {
     [key: string]: string | number | undefined,
@@ -13,8 +15,8 @@ export interface Query {
 }
 
 export const defaultQuery: Query = {
-    page: 0,
-    size: 10,
+    page: DEFAULT_PAGE,
+    size: DEFAULT_SIZE,
     name: "",
     email: "",
     gender: "",
@@ -25,21 +27,14 @@ export const defaultQuery: Query = {
 }
 //Data Get
 
-//DataPost
-
-//DataPost
-
 //DataResponse
-export interface DataResponse {
-    data: any[],
-    totalElements: number,
-    totalPages: number
-}
-
-export const TempDataResponse = {
-    data: [],
-    totalElements: 0,
-    totalPages: 0
+export interface IDataResponse {
+    success: boolean,
+    message: string,
+    data: any[] | object,
+    errors: any[],
+    timestamp: string,
+    path: string
 }
 //DataResponse
 

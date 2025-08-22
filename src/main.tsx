@@ -6,14 +6,13 @@ import { AccountProvider } from './store/Account context/index.ts';
 import { ToastifyProvider } from './store/ToastifyContext/index.ts';
 
 createRoot(document.getElementById('root')!).render(
-
-  <UIProvider>
-    <AccountProvider>
-      <ToastifyProvider>
+  <ToastifyProvider>
+    <UIProvider>
+      <AccountProvider>
         <StrictMode>
           <App />
         </StrictMode>
-      </ToastifyProvider>
-    </AccountProvider>
-  </UIProvider>,
+      </AccountProvider>
+    </UIProvider>
+  </ToastifyProvider>,
 )

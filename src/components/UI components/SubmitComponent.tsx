@@ -16,7 +16,11 @@ const SubmitComponent = ({ feature, text, isLoading, onClose }:
 
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors flex items-center"
+        className={`px-4 py-2 rounded-lg transition-colors flex items-center focus:outline-none focus:ring-2
+        ${isLoading ?
+            "bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-400"
+            :
+            "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500"}`}
         disabled={isLoading}
       >
         {isLoading ? (

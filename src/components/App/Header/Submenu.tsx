@@ -26,12 +26,13 @@ const Submenu = ({ setShowLogoutModal, setIsMenuOpen, isLoggedIn }
                     Login
                 </button>
             }
-            <button
+            {isLoggedIn && <button
+                onClick={() => navigate("/account")}
                 className="inline-flex items-center px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-md transition duration-200"
             >
                 <FaInfo className="rounded-3xl bg-white p-1 text-gray-500 text-lg mr-2" />
                 Information
-            </button>
+            </button>}
             {/* <button
                 className="text-white right-0"
                 onClick={setIsMenuOpen}

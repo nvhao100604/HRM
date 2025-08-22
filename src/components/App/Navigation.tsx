@@ -20,7 +20,6 @@ const NavBar = () => {
                 {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
 
-            {/* Updated: Sidebar with smooth transitions and hover effects */}
             <div
                 className={`fixed lg:static lg:block w-64 h-screen transition-all duration-300 ease-in-out z-40 
                     ${isSidebarOpen ? "translate-x-0"
@@ -47,7 +46,7 @@ const NavBar = () => {
                                         }`}
                                 >
                                     <item.icon size={20} />
-                                    <span>{item.name}</span>
+                                    <span className="lg:block hidden">{item.name}</span>
                                 </button>
                             </Link>
                         ))}

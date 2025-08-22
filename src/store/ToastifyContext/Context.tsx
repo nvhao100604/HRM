@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-interface ToastifyContextType {
+export interface ToastifyContextType {
     notify: (notification: string, type: string) => void
 }
 

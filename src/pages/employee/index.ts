@@ -1,4 +1,4 @@
-export { default as AccountOverview } from './overview/AccountOverview'
+export { default as AccountOverview } from '../account/overview/AccountOverview'
 export { default as EmployeeAdd } from './add/EmployeeAddModal'
 export { default as EmployeeUpdate } from './update/EmployeeUpdate'
 export { default as EmployeeManagement } from './management/EmployeeManagement'

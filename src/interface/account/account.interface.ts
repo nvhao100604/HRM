@@ -5,21 +5,22 @@ export interface AccountCache {
 }
 
 export interface Account {
-    id?: number,
-    firstName?: string,
-    lastName?: string,
-    email?: string,
-    phone?: string,
-    gender?: string,
-    dateOfBirth?: string,
-    address?: string,
-    image?: string,
-    status?: string,
-    citizenIdentificationCard?: string,
-    roleId?: number,
-    roleName?: string,
-    departmentId?: number,
-    departmentName?: string,
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    gender: string,
+    dateOfBirth: string,
+    address: string,
+    image: string,
+    citizenIdentificationCard: string,
+    status: string,
+    roleId: number,
+
+    roleName: string,
+    departmentId: number,
+    departmentName: string,
 }
 export const cloneAccount: Account = {
     id: 0,
@@ -31,9 +32,10 @@ export const cloneAccount: Account = {
     dateOfBirth: "",
     address: "",
     image: "",
-    status: "",
     citizenIdentificationCard: "",
+    status: "",
     roleId: 0,
+
     roleName: "",
     departmentId: 0,
     departmentName: "",
@@ -41,7 +43,7 @@ export const cloneAccount: Account = {
 export interface AccountState {
     isLoading: boolean,
     currentAccount: Account,
-    error: string,
+    error: any,
     isLoggedIn: boolean
 }
 

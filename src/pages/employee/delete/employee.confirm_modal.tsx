@@ -1,17 +1,23 @@
+import { mutate } from "swr";
 import { Modal } from "../../../components"
 import type { Employee } from "../../../interface/interfaces";
-import { api } from "../../../config/axios";
+import { useNotify } from "../../../store/ToastifyContext";
+import { deleteEmployee } from "../../../services";
+import { HandleError, HandleResponse } from "../../../utils";
 
-const ConfirmModal = ({ employee, handleClose }: { employee: Employee, handleClose: () => void }) => {
+const ConfirmModal = ({ employee, handleClose }
+    : { employee: Employee, handleClose: () => void }) => {
+    const notify = useNotify();
+
     const fetchDelete = async () => {
         try {
-            const response = await api.delete(`employee/${employee.id}`);
-            if (response.data.success) {
-                alert(response.data.message);
+            const response = await deleteEmployee(employee.id);
+            HandleResponse(response, notify, () => {
+                mutate("employee/filter");
                 handleClose();
-            } else console.error(response.data.errors);
+            })
         } catch (error) {
-            console.error(error);
+            HandleError(error, notify);
         }
     }
     return (

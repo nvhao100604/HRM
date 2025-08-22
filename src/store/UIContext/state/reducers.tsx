@@ -68,7 +68,7 @@ const initUIState: UIState = {
 
 //Reducer function
 function reducer(state: UIState, action: UIAction) {
-    console.log("Previous state: " + state.currentState.name);
+    // console.log("Previous state: " + state.currentState.name);
     switch (action.type) {
         case SET_UI_STATE: {
             if (!action.payload) return state;

@@ -1,15 +1,16 @@
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import { type ReactElement } from "react"
 import Context from "./Context";
-import { TOASTIFY_ERROR, TOASTIFY_INFO, TOASTIFY_SUCCESS, TOASTIFY_WARNING } from "../../config/constants";
+import { TOASTIFY_DEFAULT, TOASTIFY_ERROR, TOASTIFY_INFO, TOASTIFY_SUCCESS, TOASTIFY_TIME_OUT, TOASTIFY_WARNING } from "../../config/constants";
 
-const Provider = ({ children }: { children: ReactElement }) => {
+const Provider = ({ children, options }: { options: object, children: ReactElement }) => {
     const notify = (notification: string, type: string) => {
         switch (type) {
-            case TOASTIFY_SUCCESS: return toast.success(notification);
-            case TOASTIFY_ERROR: return toast.error(notification);
-            case TOASTIFY_WARNING: return toast.warning(notification);
-            case TOASTIFY_INFO: return toast.info(notification);
+            case TOASTIFY_SUCCESS: return toast.success(notification, options);
+            case TOASTIFY_ERROR: return toast.error(notification, options);
+            case TOASTIFY_WARNING: return toast.warning(notification, options);
+            case TOASTIFY_INFO: return toast.info(notification, options);
+            case TOASTIFY_DEFAULT: return toast(notification, options);
         }
     }
     return (
@@ -17,7 +18,7 @@ const Provider = ({ children }: { children: ReactElement }) => {
             {children}
             <ToastContainer
                 position="top-right"
-                autoClose={3000}
+                autoClose={TOASTIFY_TIME_OUT}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}
@@ -25,7 +26,7 @@ const Provider = ({ children }: { children: ReactElement }) => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                theme="light"
+                theme="dark"
                 transition={Bounce}
             />
         </Context.Provider >

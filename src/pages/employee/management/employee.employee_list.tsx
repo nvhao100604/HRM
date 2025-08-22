@@ -2,12 +2,13 @@ import { FaAccessibleIcon, FaSort } from 'react-icons/fa';
 import EmployeeUpdate from '../update/EmployeeUpdate';
 import type { Employee, Query } from '../../../interface/interfaces';
 import DeleteEmployee from '../delete/employee.delete';
-import { useFetchList } from '../../../hooks';
 import { PageSegmentation } from '../../../components';
 import EmployeeListSkeleton from './employee.employee_list_skeleton';
+import { CLONE_AVATAR } from '../../../config/constants/public';
+import { getEmployeeFilter } from '../../../services';
 
 const EmployeeList = ({ query, handleSetData }: { query: Query, handleSetData: (key: string, data: string | number) => void }) => {
-    const { data, error, isLoading } = useFetchList("employee", query);
+    const { data, error, isLoading } = getEmployeeFilter(query);
 
     const employeeList = (data && data.data) ? data.data : {};
     if (error) {
@@ -62,7 +63,10 @@ const EmployeeList = ({ query, handleSetData }: { query: Query, handleSetData: (
                                     className="hover:bg-gray-200 cursor-pointer transition-colors duration-150"
                                 >
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        <img src={employeeData.image} alt="" />
+                                        <img
+                                            className="h-20 w-20 rounded-full bg-gray-100 overflow-hidden object-cover"
+                                            src={(employeeData.image == null || employeeData.image == "") ?
+                                                CLONE_AVATAR : employeeData.image} alt="" />
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {employeeData.firstName} {employeeData.lastName ?? ""}
@@ -88,17 +92,18 @@ const EmployeeList = ({ query, handleSetData }: { query: Query, handleSetData: (
                 </div>
             )}
 
-            <div className='sticky bot-0 z-10'>
-                <PageSegmentation
-                    onSetPrevious={() => handleSetData("page", ((query.page ?? 1) - 1))}
-                    onSetAfter={() => handleSetData("page", ((query.page ?? 1) + 1))}
-                    currentPage={query.page ?? 0}
-                    totalItems={employeeList.content.length}
-                    totalPages={employeeList.totalPages}
-                    sizePerPage={query.size ?? 0}
-                    onGoToPage={handleSetData}
-                />
-            </div>
+            {data && data.data &&
+                <div className='sticky bot-0 z-10'>
+                    <PageSegmentation
+                        onSetPrevious={() => handleSetData("page", ((query.page ?? 1) - 1))}
+                        onSetAfter={() => handleSetData("page", ((query.page ?? 1) + 1))}
+                        currentPage={query.page ?? 0}
+                        totalItems={employeeList.content.length}
+                        totalPages={employeeList.totalPages}
+                        sizePerPage={query.size ?? 0}
+                        onGoToPage={handleSetData}
+                    />
+                </div>}
         </>
     )
 }

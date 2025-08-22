@@ -9,4 +9,5 @@ export { default as Login } from './log_in/page'
 export { default as ResetPassword } from './reset_password/page'
 export { default as Verify } from './verify/page'
 export { default as Registration } from './create_account/page'
+export { default as AccountInfo } from './account/page'
 

@@ -1,39 +1,31 @@
 import { useEffect, useState, type ChangeEvent } from 'react'
-import { employeeDefaultDataForm, type EmployeeDataForm } from '../../../interface/interfaces';
-import { apiFile } from '../../../config/axios';
 import { type Employee } from './../../../interface/employee/employee.interface';
 import EmployeeModal from '../employee.modal';
 import dayjs from 'dayjs';
 import { mutate } from 'swr';
 import { useNotify } from '../../../store/ToastifyContext';
-import { TOASTIFY_ERROR, TOASTIFY_SUCCESS } from '../../../config/constants';
+import { updateEmployee } from '../../../services';
+import { CreateFormByEmployee, HandleError, HandleResponse } from '../../../utils';
 
-const CreateEmployeeForm = (employee: Employee) => {
-  const employeeForm: EmployeeDataForm = {
-    id: employee.id,
-    firstName: employee.firstName,
-    lastName: employee.lastName,
-    email: employee.email,
-    gender: employee.gender,
-    phone: employee.phone,
-    dateOfBirth: employee.dateOfBirth,
-    citizenIdentificationCard: employee.citizenIdentificationCard,
-    address: employee.address,
-    status: employee.status,
-    image: null,
-    roleId: employee.roleId
-  }
-
-  return employeeForm;
-}
 ///Employee update button
 const EmployeeUpdate = ({ employee }: { employee: Employee }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const notify = useNotify();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState(CreateEmployeeForm(employee));
-  const [imgUrl, setImgUrl] = useState<string | null>(() => {
-    return employee.image
-  });
+  const [formData, setFormData] = useState(CreateFormByEmployee(employee));
+  const [imgUrl, setImgUrl] = useState("");
+
+  useEffect(() => {
+    setImgUrl(employee.image);
+  }, [])
+
+  useEffect(() => {
+    if (formData.image) setImgUrl(URL.createObjectURL(formData.image));
+    //Clean up
+    return () => {
+      setImgUrl("");
+    }
+  }, [formData.image]);
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const image = (e.target.files) ? e.target.files[0] : null;
@@ -43,40 +35,27 @@ const EmployeeUpdate = ({ employee }: { employee: Employee }) => {
     })
   };
 
-  useEffect(() => {
-    if (formData.image) setImgUrl(URL.createObjectURL(formData.image));
-    //Clean up
-    return () => {
-      setImgUrl(null);
-    }
-  }, [formData.image]);
-
-  useEffect(() => {
-    console.log("check date of birth: ", formData.dateOfBirth);
-  }, [formData.dateOfBirth])
-
   const onSubmitUpdate = async (e: any) => {
     try {
       e.preventDefault();
       if (formData.dateOfBirth == null) {
         const now = dayjs().format('YYYY-MM-DD');
-        console.log("check now:", now);
         setFormData({
           ...formData,
           dateOfBirth: now
         })
       }
-      const response = await apiFile.put("employee", formData);
-      console.log(response.data.errors);
-      if (response.data.success) {
-        // alert(response.data.message);
-        notify.notify(response.data.message, TOASTIFY_SUCCESS);
+      setIsLoading(true);
+      const response = await updateEmployee(formData);
+      HandleResponse(response, notify, () => {
+        console.log("updated")
         mutate("employee/filter");
         setIsModalOpen(false);
-      }
+      })
     } catch (error) {
-      console.error(error);
-      notify.notify("Some errors occurred", TOASTIFY_ERROR);
+      HandleError(error, notify)
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -92,22 +71,23 @@ const EmployeeUpdate = ({ employee }: { employee: Employee }) => {
       <div className="flex space-x-4">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center p-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors"
+          className="flex items-center p-2
+           bg-yellow-100 text-yellow-700 rounded-lg hover:bg-yellow-200 transition-colors"
         >
           Update
         </button>
       </div>
 
-      <EmployeeModal
+      {isModalOpen && <EmployeeModal
         textModal='Update'
+        isLoading={isLoading}
         formData={formData}
         imgUrl={imgUrl}
-        isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onChange={handleChange}
         onImageUpload={handleImageUpload}
         onSubmit={(e) => onSubmitUpdate(e)}
-      />
+      />}
     </div>
   );
 };

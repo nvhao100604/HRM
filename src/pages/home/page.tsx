@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useFetchAccount } from "../../store/Account context";
 import { useEffect } from "react";
 
 function Home() {

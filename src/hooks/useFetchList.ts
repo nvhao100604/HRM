@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import { useMemo } from "react";
 import { type Query } from "../interface/interfaces";
 //input:
 //+ Path: Thư mục tương ứng đối tượng cần lọc
@@ -16,7 +15,7 @@ const handleQuery = (query: Query) => {
     })
     return newQuery;
 }
-const useFetchList = (path: string, query: Query) => {
+const useFetchList = (path: string, query: Query, config?: object) => {
     const handledQuery = handleQuery(query) ?? null;
     const queryString = new URLSearchParams(handledQuery as any).toString();
     const key = (path && query) ? `${path}/filter?${queryString}` : null
@@ -25,12 +24,13 @@ const useFetchList = (path: string, query: Query) => {
         suspense: true,
         keepPreviousData: true,
         fallbackData: [],
-        dedupingInterval: 20000
+        dedupingInterval: 20000,
+        ...config
     });
 
-    if (data && data.data) {
-        console.log(data.data);
-    }
+    // if (data && data.data) {
+    //     console.log(data.data);
+    // }
 
     return { data, error, isLoading };
 }

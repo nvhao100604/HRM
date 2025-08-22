@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardLayout from "./pages/layout";
-import { Department, Employee, Error, Home, Login, Payroll, Recruitment, ResetPassword, Statistic, Verify } from "./pages";
+import { AccountInfo, Department, Employee, Error, Home, Login, Payroll, Recruitment, ResetPassword, Statistic, Verify } from "./pages";
 import { EmployeeIndex, EmployeeManagement } from "./pages/employee";
 import { SWRConfig } from "swr";
 import { api } from "./config/axios";
@@ -29,6 +29,7 @@ const router = createBrowserRouter([
   { path: '/login', element: <Login />, errorElement: <Error /> },
   { path: '/reset_password', element: <ResetPassword />, errorElement: <Error /> },
   { path: '/verify', element: <Verify />, errorElement: <Error /> },
+  { path: '/account', element: <AccountInfo />, errorElement: <Error /> },
 ]);
 
 function App() {

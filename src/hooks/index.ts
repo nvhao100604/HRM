@@ -1,5 +1,5 @@
 export { default as useData } from './useDataPost'
-export { default as useFetchGet } from './useFetchInfo'
+export { default as useFetchById } from './useFetchById'
 export { default as useFetchList } from './useFetchList'
 export { default as useQuery } from './useQuery'
-export { default as useFetchPut } from './usePutData'
+export { default as useGetData } from './useGET'

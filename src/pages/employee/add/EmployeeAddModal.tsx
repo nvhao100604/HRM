@@ -1,18 +1,19 @@
 import { useEffect, useState, type ChangeEvent } from 'react'
 import { FaUserPlus } from 'react-icons/fa';
 import { employeeDefaultDataForm } from '../../../interface/interfaces';
-import { apiFile } from '../../../config/axios';
 import EmployeeModal from '../employee.modal';
 import { mutate } from 'swr';
 import dayjs from 'dayjs';
 import { useNotify } from '../../../store/ToastifyContext';
-import { TOASTIFY_ERROR, TOASTIFY_SUCCESS } from '../../../config/constants';
+import { createEmployee } from '../../../services';
+import { HandleError, HandleResponse } from '../../../utils';
 
 ///Employee Add button
 const EmployeeAdd = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formAddData, setFormData] = useState(employeeDefaultDataForm);
-  const [imgUrl, setImgUrl] = useState<string | null>(null);
+  const [imgUrl, setImgUrl] = useState("");
   const notify = useNotify();
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +28,7 @@ const EmployeeAdd = () => {
     if (formAddData.image) setImgUrl(URL.createObjectURL(formAddData.image));
     //Clean up
     return () => {
-      setImgUrl(null);
+      setImgUrl("");
     }
   }, [formAddData.image]);
 
@@ -41,17 +42,18 @@ const EmployeeAdd = () => {
           dateOfBirth: now.toString()
         })
       }
-      const response = await apiFile.post("employee", formAddData);
-      if (response.data.success) {
+
+      setIsLoading(true);
+      const response = await createEmployee(formAddData);
+      HandleResponse(response, notify, () => {
         mutate("employee/filter");
-        // alert(response.data.message);
-        notify.notify(response.data.message, TOASTIFY_SUCCESS);
         setFormData(employeeDefaultDataForm);
         setIsAddModalOpen(false);
-      }
+      });
     } catch (error) {
-      console.error(error);
-      notify.notify("Some errors occurred", TOASTIFY_ERROR);
+      HandleError(error, notify);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -75,16 +77,16 @@ const EmployeeAdd = () => {
         </button>
       </div>
 
-      <EmployeeModal
+      {isAddModalOpen && <EmployeeModal
         textModal='Add'
+        isLoading={isLoading}
         formData={formAddData}
         imgUrl={imgUrl}
-        isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
         onChange={handleChange}
         onImageUpload={handleImageUpload}
         onSubmit={(e) => onSubmitAdd(e)}
-      />
+      />}
     </div>
   );
 };

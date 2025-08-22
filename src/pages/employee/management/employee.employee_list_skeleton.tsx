@@ -1,17 +1,42 @@
 
 import { FaAccessibleIcon, FaSort } from 'react-icons/fa';
-import { Box, Skeleton } from '@mui/material';
+import { Skeleton } from '@mui/material';
 
 const EmployeeListSkeleton = () => {
     const spawnSpan = () => {
         const skeletonSpan = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 7; i++) {
             skeletonSpan.push(
-                <tr className=''>
-                    <Skeleton
-                        key={i}
-                        animation="wave"
-                    />
+                <tr key={i} className=''>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <Skeleton variant='circular' width={80} height={80} animation="wave" />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <Skeleton width={100}
+                            animation="wave"
+                        />
+                        <Skeleton width={80}
+                        />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <Skeleton width={100}
+                            animation="wave"
+                        />
+                        <Skeleton width={80}
+                        />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <Skeleton width={100}
+                            animation="wave"
+                        />
+                        <Skeleton width={80}
+                        /></td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <Skeleton width={80}
+                            animation="wave"
+                        />
+                        <Skeleton width={80}
+                        /></td>
                 </tr>
             )
         }

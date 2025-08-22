@@ -4,6 +4,7 @@ import { useAccount } from "../../../store/Account context";
 import { account_actions } from "../../../store/Account context/state";
 import Submenu from "./Submenu";
 import Notification from "./Notification";
+import { CLONE_AVATAR } from "../../../config/constants/public";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,7 +12,7 @@ const Header = () => {
     const [account, dispatch] = useAccount();
     const currentAccount = account.currentAccount;
     const submenuRef = useRef<HTMLDivElement>(null);
-    console.log("mount")
+
     useEffect(() => {
         const handleCloseLogoutModal = (e: any) => {
             if (submenuRef.current && !submenuRef.current.contains(e.target)) {
@@ -41,19 +42,22 @@ const Header = () => {
               {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
             </button> */}
                     <div className="flex items-center p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 relative">
-                        <Notification />
+                        <Notification isLoggedIn={account.isLoggedIn} />
                     </div>
                     <div
                         className="flex w-36 rounded-3xl p-2 items-center space-x-2 place-content-between cursor-pointer 
                     hover:bg-gray-200 hover:text-blue-400 hover:opacity-80 transition-opacity duration-200"
                         onClick={() => setIsMenuOpen(true)}
                     >
-                        <span className="hidden md:inline text-lg text-center text-shadow-lg">{currentAccount.lastName === "" ? "User" : currentAccount.lastName}</span>
+                        <span className="hidden md:inline text-lg text-center text-shadow-lg ">
+                            {(currentAccount.lastName == null || currentAccount.lastName == "") ? "User" : currentAccount.lastName}
+                        </span>
                         <img
-                            src={account.isLoggedIn ? account.currentAccount.image :
-                                "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}
+                            src={(account.isLoggedIn && account.currentAccount.image && account.currentAccount.image != "") ?
+                                account.currentAccount.image :
+                                CLONE_AVATAR}
                             alt="User"
-                            className="h-8 w-8 rounded-full ring-2 ring-blue-500"
+                            className="h-8 w-8 rounded-full ring-2 ring-blue-500 object-cover"
                         />
                     </div>
                 </div>

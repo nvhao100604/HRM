@@ -9,7 +9,7 @@ function CustomRadioVariants({ name, radioName, radioItems, radioInitValue, onSe
   return (
     <FormControl>
       <FormLabel>{radioName}</FormLabel>
-      <RadioGroup defaultValue={radioInitValue} name={name}
+      <RadioGroup value={radioInitValue} name={name}
         onChange={onSetData}
       >
         <div className='flex items-stretch place-content-between'>

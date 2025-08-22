@@ -1,6 +1,7 @@
 export { default as Header } from './App/Header/Header'
 export { default as NavBar } from './App/Navigation'
 export { default as LogOut } from './App/Header/LogoutModal'
+///
 export { default as Modal } from './UI components/modal'
 export { default as Radio } from './UI components/CustomRadioVariants'
 export { default as Section } from './UI components/CustomSection'
@@ -11,6 +12,9 @@ export { default as PageSegmentation } from './UI components/PageSegmentation'
 export { default as Submit } from './UI components/SubmitComponent'
 export { default as TableFromList } from './UI components/TableFromList'
 export { default as DatePickers } from './UI components/DatePicker'
+export { default as AvatarUpload } from './UI components/AvatarUpload'
+export { default as LoadingIcon } from './UI components/LoadingIcon'
+export { default as BackButton } from './UI components/BackButton'
 
 
 

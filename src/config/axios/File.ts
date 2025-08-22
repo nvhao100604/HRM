@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_BACK_END_URL } from "../constants";
+import { BASE_BACK_END_URL, DEFAULT_TIMEOUT, RESPONSE_DELAY } from "../constants";
 
 const apiFile = axios.create({
     baseURL: BASE_BACK_END_URL,
@@ -7,6 +7,7 @@ const apiFile = axios.create({
         "Content-Type": "multipart/form-data"
     },
 })
+apiFile.defaults.timeout = DEFAULT_TIMEOUT;
 apiFile.interceptors.request.use(config => {
     const token = localStorage.getItem("access_token");
     if (token) {
@@ -22,7 +23,8 @@ apiFile.interceptors.request.use(config => {
 );
 
 apiFile.interceptors.response.use(
-    response => {
+    async (response) => {
+        await new Promise(resolve => setTimeout(resolve, RESPONSE_DELAY));
         console.log(`API response: ${response.status} ${response.config.url}`);
         return response;
     },
