@@ -7,7 +7,7 @@ function CircularIndeterminate({ children }: { children: ReactElement }) {
     useEffect(() => {
         const timerId = setTimeout(() => {
             setIsLoading(false);
-        }, 50000);
+        }, 5000);
 
         return () => {
             clearTimeout(timerId);

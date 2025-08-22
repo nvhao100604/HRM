@@ -3,8 +3,8 @@ import LogoutModal from "./LogoutModal";
 import { useAccount } from "../../../store/Account context";
 import { account_actions } from "../../../store/Account context/state";
 import Submenu from "./Submenu";
-import Notification from "./Notification";
 import { CLONE_AVATAR } from "../../../config/constants/public";
+import NotificationButton from "./Notification/Notification";
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,6 +31,7 @@ const Header = () => {
         dispatch(account_actions.logOut());
         setShowLogoutModal(false);
     }
+
     return (
         <>
             <header className="bg-white dark:bg-gray-800 shadow-md p-3 top-0 z-30 fixed w-full">
@@ -42,7 +43,7 @@ const Header = () => {
               {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
             </button> */}
                     <div className="flex items-center p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 relative">
-                        <Notification isLoggedIn={account.isLoggedIn} />
+                        <NotificationButton isLoggedIn={account.isLoggedIn} />
                     </div>
                     <div
                         className="flex w-36 rounded-3xl p-2 items-center space-x-2 place-content-between cursor-pointer 

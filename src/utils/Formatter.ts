@@ -4,4 +4,7 @@ const DayJsToString = (value: any) => {
     return dayjs(value ?? null).format('YYYY-MM-DD');
 }
 
-export { DayJsToString }
+const formatTimeStamp = (timestamp: any) => {
+    return dayjs(timestamp ?? null).format('MMM d, yyyy h:mm a');
+}
+export { DayJsToString, formatTimeStamp }

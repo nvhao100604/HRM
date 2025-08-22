@@ -1,5 +1,5 @@
 
 const CLONE_AVATAR = "/images/clone_avatar.jpg"
-const NAVIGATE_DELAY = 2000;
+const NAVIGATE_DELAY = 1000;
 
 export { CLONE_AVATAR, NAVIGATE_DELAY }

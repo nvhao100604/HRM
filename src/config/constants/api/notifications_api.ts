@@ -1,7 +1,17 @@
 const NOTIFICATIONS = "notifications"
 const NOTIFICATIONS_CURRENT = "notifications-current-employee"
+const NOTIFICATION_GLOBAL = "global";
+const NOTIFICATION_DEPARTMENT = "department";
+const NOTIFICATION_READ = "read";
+const NOTIFICATION_READ_ALL = "read-all";
+const NOTIFICATION_CLEAR_ALL = "clear-all";
 
 export {
     NOTIFICATIONS,
     NOTIFICATIONS_CURRENT,
+    NOTIFICATION_GLOBAL,
+    NOTIFICATION_DEPARTMENT,
+    NOTIFICATION_READ,
+    NOTIFICATION_READ_ALL,
+    NOTIFICATION_CLEAR_ALL
 }

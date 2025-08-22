@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { initLoginForm, type Account, type IError, type ILoginForm } from "../../interface/interfaces";
 import ReturnButton from "./ReturnButton";
@@ -9,7 +9,7 @@ import { authLogin, getCurrentEmployee } from "../../services";
 import { useAccount } from "../../store/Account context";
 import { account_actions } from "../../store/Account context/state";
 import { useNotify } from "../../store/ToastifyContext";
-import { TOASTIFY_ERROR, TOASTIFY_SUCCESS } from "../../config/constants";
+import { NAVIGATE_DELAY, TOASTIFY_ERROR, TOASTIFY_SUCCESS } from "../../config/constants";
 import axios from "axios";
 import LoginField from "./LoginField";
 
@@ -17,9 +17,9 @@ const LoginForm = () => {
     const [formData, setFormData] = useState<ILoginForm>(initLoginForm);
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState<IError>({});
-    const [isSuccess, setIsSuccess] = useState(false);
     const [state, dispatch] = useAccount();
     const notify = useNotify();
+    const navigate = useNavigate();
 
     const validateUsername = (username: string) => {
         const usernameRegex = /^[a-zA-Z0-9_]{4,20}$/;
@@ -52,12 +52,13 @@ const LoginForm = () => {
         setErrors(newErrors);
     };
 
-    const handleLoginResponse = (response: any) => {
+    const handleLoginResponse = async (response: any) => {
         if (response.success) {
             dispatch(account_actions.logIn(response.data as Account));
-            dispatch(account_actions.fetchAccountSuccess());
             notify.notify("Log in successfully!", TOASTIFY_SUCCESS);
-            setIsSuccess(true);
+            await new Promise(resolve => setTimeout(resolve, NAVIGATE_DELAY));
+            dispatch(account_actions.fetchAccountSuccess());
+            navigate('/');
         } else {
             dispatch(account_actions.fetchAccountError(response.message));
             notify.notify(response.message, TOASTIFY_ERROR);
@@ -76,7 +77,7 @@ const LoginForm = () => {
             try {
                 dispatch(account_actions.fetchAccountRequest());
                 const employee_data = await getCurrentEmployee();
-                handleLoginResponse(employee_data);
+                await handleLoginResponse(employee_data);
             } catch (error) {
                 handleError(error);
             }

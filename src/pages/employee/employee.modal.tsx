@@ -28,6 +28,7 @@ const EmployeeModal = ({ textModal, isLoading, formData, imgUrl, onClose, onChan
                             <AvatarUpload
                                 edge="w-28 h-28"
                                 imgUrl={imgUrl}
+                                isEditing={true}
                                 onImageUpload={onImageUpload}
                             />
                             <div className='relative'>

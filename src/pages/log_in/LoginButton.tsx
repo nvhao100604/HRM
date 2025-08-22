@@ -1,27 +1,9 @@
-import { useEffect, useRef } from "react";
 import type { IError } from "../../interface/interfaces";
-import { useNavigate } from "react-router-dom";
-import { NAVIGATE_DELAY } from "../../config/constants";
 import { useAccount } from "../../store/Account context";
 
 const LoginButton = ({ errors }:
     { errors: IError }) => {
-    const timerIdRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const navigate = useNavigate();
     const [state, dispatch] = useAccount();
-
-    useEffect(() => {
-        if (state.isLoggedIn) {
-            timerIdRef.current = setTimeout(() => {
-                // console.log("check error: ", state.error);
-                navigate('/');
-            }, NAVIGATE_DELAY);
-        }
-
-        return () => {
-            clearTimeout(timerIdRef.current!);
-        }
-    }, [state.isLoggedIn]);
 
     return (
         <button

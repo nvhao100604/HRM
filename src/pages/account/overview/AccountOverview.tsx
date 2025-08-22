@@ -36,6 +36,7 @@ function AccountOverview(
               <AvatarUpload
                 edge="w-32 h-32"
                 imgUrl={imgUrl}
+                isEditing={isEditing}
                 onImageUpload={handleImageUpload}
               />
               <div className='flex justify-items-center rounded-md mt-4'>
